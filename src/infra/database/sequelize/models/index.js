@@ -1,14 +1,23 @@
 const ModelsLoader = require('../ModelsLoader');
 
-const dbv1 = ModelsLoader(
-  'v1',
-  __dirname,
-);
-// const v2 = ModelsLoader('v2');
-// const v3 = ModelsLoader('v3');
+const v1test = ModelsLoader('v1', 'test', __dirname);
+const v1prod = ModelsLoader('v1', 'prod', __dirname);
+
+const dbv1 = {
+  test: v1test,
+  prod: v1prod,
+};
+
+
+// const v2test = ModelsLoader('v2', 'test', __dirname);
+// const v2prod = ModelsLoader('v2', 'prod', __dirname);
+
+// const dbv2 = {
+//   test: v2test,
+//   prod: v2prod,
+// };
 
 module.exports = {
   dbv1,
-  // v2,
-  // v3,
+  // dbv2
 };

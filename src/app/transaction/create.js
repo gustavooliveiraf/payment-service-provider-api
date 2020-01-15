@@ -9,13 +9,14 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
     const { infraVersion } = req;
     const { card, transaction, payable } = req.payload;
 
-    const respCard = await cardRepository(card, infraVersion);
+    const respCard = await cardRepository(card, infraVersion, req.environment);
 
-    const respTransaction = await transactionRepository(transaction, respCard.id, infraVersion);
+    const respTransaction = await transactionRepository(transaction, respCard.id, infraVersion,
+      req.environment);
 
-    if (transaction.status === 'authorized') await payableRepository(payable, respTransaction.id, infraVersion);
+    if (transaction.status === 'authorized') await payableRepository(payable, respTransaction.id, infraVersion, req.environment);
 
-    const resp = transactionResponseModel('transaction', transaction.authorizationCode, respCard, respTransaction);
+    const resp = transactionResponseModel('transaction', transaction.authorizationCode, transaction.usedKey, respCard, respTransaction);
 
     return res.finish(resp);
   } catch (err) {

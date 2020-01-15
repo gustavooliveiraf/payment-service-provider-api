@@ -40,7 +40,7 @@ module.exports = {
     refuseReason: {
       type: Sequelize.STRING,
     },
-    paymentMethod: {
+    paymentMethodId: {
       allowNull: false,
       type: Sequelize.INTEGER,
       references: {
@@ -62,7 +62,7 @@ module.exports = {
         key: 'id',
       },
     },
-    captureMethod: {
+    captureMethodId: {
       allowNull: false,
       type: Sequelize.INTEGER,
       references: {
@@ -73,7 +73,7 @@ module.exports = {
         key: 'id',
       },
     },
-    usedKey: {
+    usedKeyId: {
       allowNull: false,
       type: Sequelize.INTEGER,
       references: {

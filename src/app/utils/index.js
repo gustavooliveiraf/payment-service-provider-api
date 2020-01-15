@@ -1,15 +1,15 @@
-const fail = require('./failHandler');
 const constant = require('./constants');
 const formatDate = require('./formatDate');
 const message = require('./staticMessages');
 const CustomError = require('./CustomError');
-const apiKeysFuncs = require('./apiKeysFuncs');
+const jwtGenerator = require('./jwtGenerator');
+const bcryptHashFuncs = require('./bcryptHashFuncs');
 
 module.exports = {
-  fail,
   message,
   constant,
   formatDate,
   CustomError,
-  apiKeysFuncs,
+  jwtGenerator,
+  bcryptHashFuncs,
 };

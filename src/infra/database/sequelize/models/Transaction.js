@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    paymentMethod: {
+    paymentMethodId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    captureMethod: {
+    captureMethodId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    usedKey: {
+    usedKeyId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {

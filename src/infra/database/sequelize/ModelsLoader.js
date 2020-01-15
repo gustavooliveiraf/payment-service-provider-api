@@ -4,8 +4,8 @@ const Sequelize = require('sequelize');
 
 const configVersion = require('../../../../config/databases');
 
-const ModelsLoader = (infraVersion, baseFolder, indexFile = 'index.js') => {
-  const config = configVersion[infraVersion];
+const ModelsLoader = (infraVersion, env, baseFolder, indexFile = 'index.js') => {
+  const config = configVersion[infraVersion][env];
   const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
   const db = {};

@@ -10,7 +10,7 @@ const msIn30days = 30 * 24 * 60 * 60 * 1000;
 
 function round(value) {
   // eslint-disable-next-line prefer-template
-  return Number(Math.round(value + 'e2') + 'e-2');
+  return Math.round(Math.round(value + 'e2') + 'e-2');
 }
 
 const create = (transaction) => {
@@ -27,7 +27,7 @@ const create = (transaction) => {
   // transaction.paymentMethod === 'credit_card'
   return {
     status: 'waiting_funds',
-    paymentDate: new Date(now + msIn30days),
+    paymentDate: new Date(now.getTime() + msIn30days),
     fee: feeCredit,
     value: round(transaction.value * feeCreditCalc),
   };

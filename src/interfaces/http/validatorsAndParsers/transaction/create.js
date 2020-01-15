@@ -1,6 +1,3 @@
-const captureMethod = require('../../../../infra/database/enums/transaction/captureMethod');
-const paymentMethod = require('../../../../infra/database/enums/transaction/paymentMethod');
-
 const schema = require('../schemas/transaction/create');
 
 const create = async (req, res, next) => {
@@ -17,10 +14,10 @@ const create = async (req, res, next) => {
       value: body.value,
       capture: body.capture,
       description: body.description,
-      paymentMethod: paymentMethod[body.paymentMethod],
-      captureMethod: captureMethod[body.captureMethod],
-      usedKey: 1,
-      userId: 1,
+      paymentMethod: body.paymentMethod,
+      captureMethod: body.captureMethod,
+      usedKey: req.usedKey,
+      userId: req.user.id,
     };
 
     req.payload = {};

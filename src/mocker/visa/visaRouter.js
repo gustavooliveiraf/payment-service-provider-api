@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const uuid = require('uuid/v1');
 
-router.post('/transaction', (req, res) => {
+router.post('/visa/transaction', (req, res) => {
   if (req.body.value >= 100000) {
     return res.status(200).send({
       status: 'refused', refuseReason: 'Saldo insuficiente', authorizedValue: null, capturedValue: null, authorizationCode: null,

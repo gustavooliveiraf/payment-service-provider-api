@@ -20,25 +20,13 @@ module.exports = {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    apiKeyTest: {
+    apiKey: {
       unique: true,
       allowNull: false,
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV1,
     },
-    encryptionKeyTest: {
-      unique: true,
-      allowNull: false,
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV1,
-    },
-    apiKeyProd: {
-      unique: true,
-      allowNull: false,
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV1,
-    },
-    encryptionKeyProd: {
+    encryptionKey: {
       unique: true,
       allowNull: false,
       type: Sequelize.UUID,

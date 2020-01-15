@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const createRouter = require('./create');
-// const readRouter = require('./read');
+// const listRouter = require('./list');
 
 router.use(createRouter);
-// router.use(readRouter);
+// router.use(listRouter);
 
 module.exports = router;

@@ -15,25 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    apiKeyTest: {
+    apiKey: {
       unique: true,
       allowNull: false,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
     },
-    encryptionKeyTest: {
-      unique: true,
-      allowNull: false,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
-    },
-    apiKeyProd: {
-      unique: true,
-      allowNull: false,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
-    },
-    encryptionKeyProd: {
+    encryptionKey: {
       unique: true,
       allowNull: false,
       type: DataTypes.UUID,

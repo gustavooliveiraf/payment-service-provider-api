@@ -5,7 +5,6 @@ const enums = require('../../../infra/database/enums/transaction');
 const captureMethod = invert(enums.captureMethod);
 const paymentMethod = invert(enums.paymentMethod);
 const status = invert(enums.status);
-const usedKey = invert(enums.usedKey);
 
 const transactionObject = schema({
   object: String,
@@ -25,12 +24,11 @@ const transactionObject = schema({
   usedKey: String,
 });
 
-const transactionModel = (object, brandAuthorizationCode, card, transaction) => {
+const transactionModel = (object, brandAuthorizationCode, usedKey, card, transaction) => {
   const transactionTemp = { ...transaction };
-  transactionTemp.captureMethod = captureMethod[transaction.captureMethod];
-  transactionTemp.paymentMethod = paymentMethod[transaction.paymentMethod];
+  transactionTemp.captureMethod = captureMethod[transaction.captureMethodId];
+  transactionTemp.paymentMethod = paymentMethod[transaction.paymentMethodId];
   transactionTemp.status = status[transaction.statusId];
-  transactionTemp.usedKey = usedKey[transaction.usedKey];
 
   const cardTemp = {
     cardHolderName: card.holderName,
@@ -39,7 +37,7 @@ const transactionModel = (object, brandAuthorizationCode, card, transaction) => 
   };
 
   return transactionObject.parse({
-    object, brandAuthorizationCode, ...cardTemp, ...transactionTemp,
+    object, brandAuthorizationCode, usedKey, ...cardTemp, ...transactionTemp,
   });
 };
 

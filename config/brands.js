@@ -1,6 +1,6 @@
 const visa = {
   baseURL: process.env.VISA_BASEURL,
-  timeout: process.env.VISA_TIMEOU,
+  timeout: process.env.VISA_TIMEOUT,
   apiKey: process.env.VISA_APIKEY,
 };
 

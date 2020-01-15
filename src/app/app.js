@@ -7,7 +7,10 @@ const server = require('../interfaces/http/server');
 
 const start = async () => {
   const results = [];
-  for (const db in dbVersions) results.push(dbVersions[db].sequelize.authenticate());
+  for (const db in dbVersions) {
+    results.push(dbVersions[db].test.sequelize.authenticate());
+    results.push(dbVersions[db].prod.sequelize.authenticate());
+  }
 
   await Promise.all(results);
 

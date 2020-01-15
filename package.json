@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "db:prod:init": "NODE_ENV=prod npm run db:init",
+    "db:test:init": "NODE_ENV=test npm run db:init",
     "db:init": "npm run db:create && npm run db:migrate && npm run db:seed:all",
     "db:create": "npx sequelize db:create",
     "db:migrate": "npx sequelize db:migrate",
@@ -20,11 +22,13 @@
   "dependencies": {
     "@hapi/joi": "^17.0.0",
     "axios": "^0.19.1",
+    "bcrypt": "^3.0.7",
     "compression": "^1.7.4",
     "credit-card-type": "^8.3.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-status-codes": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^7.15.1",
     "pg-hstore": "^2.3.3",
     "schm": "^0.4.1",
