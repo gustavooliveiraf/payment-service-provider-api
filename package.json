@@ -6,8 +6,10 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "pretest": "echo \"Error: no test specified\" && exit 1",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db:init": "npm run db:create && npm run db:migrate && npm run db:seed:all",
+    "db:create": "npx sequelize db:create",
+    "db:migrate": "npx sequelize db:migrate",
+    "db:seed:all": "npx sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "http-status-codes": "^1.4.0",
     "pg": "^7.15.1",
     "pg-hstore": "^2.3.3",
+    "schm": "^0.4.1",
     "sequelize": "^5.21.3",
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.2",

@@ -1,5 +1,5 @@
 module.exports = {
-  ecommerce: 1,
+  magstripe: 1,
   emv: 2,
-  magstripe: 3,
+  ecommerce: 3,
 };

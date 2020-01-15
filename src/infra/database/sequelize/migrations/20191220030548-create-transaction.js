@@ -3,52 +3,87 @@ module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('transactions', {
     id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV1,
     },
     value: {
       allowNull: false,
       type: Sequelize.INTEGER,
     },
-    authorizedValue: {
-      allowNull: false,
-      type: Sequelize.INTEGER,
-    },
-    capturedValue: {
-      allowNull: false,
-      type: Sequelize.INTEGER,
-    },
-    // paidValue: {
-    //   allowNull: false,
-    //   type: Sequelize.INTEGER,
-    // },
     description: {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    // paymentMethod: {
-    //   allowNull: false,
-    //   type: Sequelize.INTEGER,
-    //   references: {
-    //     model: {
-    //       schema: 'transaction',
-    //       tableName: 'paymentMethods',
-    //     },
-    //     key: 'id',
-    //   },
-    // },
-    // usedKey: {
-    //   allowNull: false,
-    //   type: Sequelize.INTEGER,
-    //   references: {
-    //     model: {
-    //       schema: 'users',
-    //       tableName: 'usedKeys',
-    //     },
-    //     key: 'id',
-    //   },
-    // },
+    authorizedValue: {
+      type: Sequelize.INTEGER,
+    },
+    capturedValue: {
+      type: Sequelize.INTEGER,
+    },
+    capture: {
+      allowNull: false,
+      type: Sequelize.BOOLEAN,
+      defaultValue: true,
+    },
+    statusId: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          schema: 'transaction',
+          tableName: 'transactionStatuses',
+        },
+        key: 'id',
+      },
+    },
+    refuseReason: {
+      type: Sequelize.STRING,
+    },
+    paymentMethod: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          schema: 'transaction',
+          tableName: 'paymentMethods',
+        },
+        key: 'id',
+      },
+    },
+    cardId: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          schema: 'register',
+          tableName: 'cards',
+        },
+        key: 'id',
+      },
+    },
+    captureMethod: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          schema: 'transaction',
+          tableName: 'captureMethods',
+        },
+        key: 'id',
+      },
+    },
+    usedKey: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          schema: 'register',
+          tableName: 'usedKeys',
+        },
+        key: 'id',
+      },
+    },
     userId: {
       allowNull: false,
       type: Sequelize.INTEGER,
@@ -60,17 +95,6 @@ module.exports = {
         key: 'id',
       },
     },
-    // cardId: {
-    //   allowNull: false,
-    //   type: Sequelize.INTEGER,
-    //   references: {
-    //     model: {
-    //       schema: 'register',
-    //       tableName: 'cards',
-    //     },
-    //     key: 'id',
-    //   },
-    // },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

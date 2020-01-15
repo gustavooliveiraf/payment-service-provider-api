@@ -2,15 +2,21 @@
 module.exports = (sequelize, DataTypes) => {
   const card = sequelize.define('card', {
     lastDigits: {
+      allowNull: false,
       type: DataTypes.STRING,
     },
-    name: {
+    holderName: {
+      allowNull: false,
       type: DataTypes.STRING,
     },
     expirationDate: {
-      type: DataTypes.DATE,
+      allowNull: false,
+      type: DataTypes.STRING,
     },
-    verificationCode: {
+    cvv: {
+      type: DataTypes.STRING,
+    },
+    brand: {
       type: DataTypes.STRING,
     },
     createdAt: {
@@ -22,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
     },
   }, {
-    schema: 'transaction',
+    schema: 'register',
   });
 
   card.associate = () => {

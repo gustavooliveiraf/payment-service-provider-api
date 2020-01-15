@@ -8,15 +8,21 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     lastDigits: {
+      allowNull: false,
       type: Sequelize.STRING,
     },
-    name: {
+    holderName: {
+      allowNull: false,
       type: Sequelize.STRING,
     },
     expirationDate: {
-      type: Sequelize.DATE,
+      allowNull: false,
+      type: Sequelize.STRING,
     },
-    verificationCode: {
+    cvv: {
+      type: Sequelize.STRING,
+    },
+    brand: {
       type: Sequelize.STRING,
     },
     createdAt: {

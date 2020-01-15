@@ -1,8 +1,11 @@
 const router = require('express').Router();
-const validator = require('../../validators/transaction/create');
-const domain = require('../../../../domain/transaction/create.js');
+const creditCardType = require('credit-card-type'); // dependency injection
+
+const validatorAndParser = require('../../validatorsAndParsers/transaction/create');
+const domain = require('../../../../domain/businessRules/transaction/create.js');
 const controller = require('../../../../app/transaction/create');
-const repository = require('../../../../infra/repositories/sequelize/transaction/create');
+
+const clients = require('../../../../services/clients'); // dependency injection
 
 /**
  * @swagger
@@ -24,7 +27,7 @@ const repository = require('../../../../infra/repositories/sequelize/transaction
  *           format: token
  *           example: test_0c82a54f22f775a3ed8b97b2dea74036
  *         required: true
- *         description: They are responsible  for api authentication and associating account transactions
+ *         description: They are responsible for api authentica and associating account transactions
  *     responses:
  *       '200':
  *         description: Ok
@@ -33,6 +36,6 @@ const repository = require('../../../../infra/repositories/sequelize/transaction
  *       '401':
  *         description: Unauthorized
  */
-router.post('/transactions', validator, domain, controller(repository));
+router.post('/transactions', validatorAndParser, domain(creditCardType, clients), controller());
 
 module.exports = router;

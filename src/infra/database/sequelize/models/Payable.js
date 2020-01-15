@@ -12,24 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE,
     },
-    status: {
+    statusId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: {
           schema: 'payable',
           tableName: 'payableStatuses',
-        },
-        key: 'id',
-      },
-    },
-    refuseReason: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      references: {
-        model: {
-          schema: 'payable',
-          tableName: 'refuseReasons',
         },
         key: 'id',
       },

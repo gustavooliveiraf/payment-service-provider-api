@@ -1,16 +1,13 @@
 const database = require('../../../../infra/database/sequelize/models');
-const formatDate = require('../utils/formatDate');
+const StatusEnum = require('../../../database/enums/transaction/status.js');
 
-const create = async (payload, infraVersion) => {
+const create = async (payload, cardId, infraVersion) => {
   const TransactionModel = database[infraVersion].Transaction;
+  const statusId = StatusEnum[payload.status];
 
-  let transaction = await TransactionModel.create(payload);
-
-  transaction = formatDate(transaction, 'createdAt', 'updatedAt');
+  const transaction = await TransactionModel.create({ ...payload, statusId, cardId });
 
   return transaction.dataValues;
 };
 
-module.exports = {
-  create,
-};
+module.exports = create;

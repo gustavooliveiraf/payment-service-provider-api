@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 
-const configVersion = require('../../../../config/database');
+const configVersion = require('../../../../config/databases');
 
 const ModelsLoader = (infraVersion, baseFolder, indexFile = 'index.js') => {
   const config = configVersion[infraVersion];

@@ -19,7 +19,7 @@ module.exports = {
       allowNull: false,
       type: Sequelize.DATE,
     },
-    status: {
+    statusId: {
       allowNull: false,
       type: Sequelize.INTEGER,
       references: {
@@ -30,20 +30,9 @@ module.exports = {
         key: 'id',
       },
     },
-    refuseReason: {
-      allowNull: false,
-      type: Sequelize.INTEGER,
-      references: {
-        model: {
-          schema: 'payable',
-          tableName: 'refuseReasons',
-        },
-        key: 'id',
-      },
-    },
     transactionId: {
       allowNull: false,
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
       references: {
         model: {
           schema: 'transaction',

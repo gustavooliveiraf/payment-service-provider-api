@@ -1,4 +1,4 @@
 module.exports = {
-  test: 1,
-  prod: 2,
+  apiKey: 1,
+  encryptionKey: 2,
 };

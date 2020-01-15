@@ -7,6 +7,7 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     name: {
+      allowNull: false,
       type: Sequelize.STRING,
     },
     description: {
@@ -21,7 +22,7 @@ module.exports = {
       type: Sequelize.DATE,
     },
   }, {
-    schema: 'users',
+    schema: 'register',
   }),
   down: (queryInterface) => queryInterface.dropTable('usedKeys'),
 };

@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const payableStatus = sequelize.define('payableStatus', {
     name: {
+      allowNull: false,
       type: DataTypes.STRING,
     },
     description: {
