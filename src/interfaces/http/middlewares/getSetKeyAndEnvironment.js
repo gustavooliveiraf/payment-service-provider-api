@@ -33,7 +33,7 @@ const getApiKey = (req, res, next) => {
 
   req.usedKey = key.substring(0, 2) === 'ak' ? 'apiKey' : 'encryptionKey';
   req.key = key.substring(prefixApiKeyTestLength);
-  req.environment = (prefix === prefixAkTest || prefix === prefixEkTest) ? 'test' : 'prod';
+  req.env = (prefix === prefixAkTest || prefix === prefixEkTest) ? 'test' : 'prod';
 
   return next();
 };

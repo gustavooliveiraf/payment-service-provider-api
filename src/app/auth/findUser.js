@@ -1,8 +1,8 @@
 const userRepositoryDefault = require('../../infra/repositories/sequelize/user/findByKey');
 
-const findUser = (repository) => async (usedKey, key, infraVersion, environment) => {
+const findUser = (repository) => async (usedKey, key, infraVersion, env) => {
   try {
-    const user = await repository.findByKey(usedKey, key, infraVersion, environment);
+    const user = await repository.findByKey(usedKey, key, infraVersion, env);
 
     return user;
   } catch (err) {

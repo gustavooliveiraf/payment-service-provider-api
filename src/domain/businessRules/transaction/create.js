@@ -23,6 +23,7 @@ const create = (creditCardType, brandClients) => async (req, res, next) => {
       || (brandPayload.status === 'authorized' && !brandPayload.authorizationCode)) throw new Error('Erro com a bandeira');
 
     req.payload.card.brand = brandType;
+
     req.payload.transaction = {
       ...req.payload.transaction,
       status: brandPayload.status,

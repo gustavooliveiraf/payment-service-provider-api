@@ -1,8 +1,8 @@
 const database = require('../../../../infra/database/sequelize/models');
 const formatDate = require('../utils/formatDate');
 
-const findOrCreate = async (payload, infraVersion, environment) => {
-  const UserModel = database[infraVersion][environment].User;
+const findOrCreate = async (payload, infraVersion, env) => {
+  const UserModel = database[infraVersion][env].User;
 
   const user = await UserModel.findOrCreate({
     where: {

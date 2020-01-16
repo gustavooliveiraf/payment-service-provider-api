@@ -1,22 +1,19 @@
-const cardRepositoryDefault = require('../../infra/repositories/sequelize/register/card/create');
-const transactionRepositoryDefault = require('../../infra/repositories/sequelize/transaction/create');
-const payableRepositoryDefault = require('../../infra/repositories/sequelize/payable/create');
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-return-await */
+const sequelizeTransaction = require('../../infra/database/sequelize/transactions/transaction/create');
 
 const transactionResponseModel = require('../../domain/responseModels/transaction/create');
 
-const create = (transactionRepository, cardRepository, payableRepository) => async (req, res) => {
+const create = () => async (req, res) => {
   try {
-    const { infraVersion } = req;
+    const { infraVersion, env } = req;
     const { card, transaction, payable } = req.payload;
 
-    const respCard = await cardRepository(card, infraVersion, req.environment);
+    const payload = await sequelizeTransaction()(card,
+      transaction, payable, infraVersion, env);
 
-    const respTransaction = await transactionRepository(transaction, respCard.id, infraVersion,
-      req.environment);
-
-    if (transaction.status === 'authorized') await payableRepository(payable, respTransaction.id, infraVersion, req.environment);
-
-    const resp = transactionResponseModel('transaction', transaction.authorizationCode, transaction.usedKey, respCard, respTransaction);
+    const resp = transactionResponseModel('transaction',
+      transaction.authorizationCode, transaction.usedKey, payload.card, payload.transaction);
 
     return res.finish(resp);
   } catch (err) {
@@ -24,5 +21,4 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
   }
 };
 
-module.exports = (arg1 = transactionRepositoryDefault, arg2 = cardRepositoryDefault,
-  arg3 = payableRepositoryDefault) => create(arg1, arg2, arg3);
+module.exports = () => create();

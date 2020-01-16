@@ -1,7 +1,7 @@
 const database = require('../../../../infra/database/sequelize/models');
 
-const findByKey = async (usedKey, keyValue, infraVersion, environment) => {
-  const UserModel = database[infraVersion][environment].User;
+const findByKey = async (usedKey, keyValue, infraVersion, env) => {
+  const UserModel = database[infraVersion][env].User;
 
   const user = await UserModel.findOne({
     where: { [usedKey]: keyValue },

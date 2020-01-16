@@ -27,7 +27,7 @@ const create = (repository) => async (req, res) => {
 
     const payload = { ...req.user };
 
-    const user = await repository.findOrCreate(payload, req.infraVersion, req.environment);
+    const user = await repository.findOrCreate(payload, req.infraVersion, req.env);
 
     return res.finish(formatResponse(user));
   } catch (err) {

@@ -14,6 +14,7 @@ const formatResponse = (user, keys) => {
   const token = jwtGenerator(keys);
 
   return {
+    ...userTemp,
     token,
   };
 };
@@ -22,7 +23,7 @@ const find = (repository) => async (req, res) => {
   try {
     const payload = req.user;
 
-    const user = await repository.findByEmail(payload.email, req.infraVersion, req.environment);
+    const user = await repository.findByEmail(payload.email, req.infraVersion, req.env);
 
     if (!(await compare(payload.password, user.password))) {
       throw new Error('ValidationError');

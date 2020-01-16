@@ -1,13 +1,15 @@
 const database = require('../../../../infra/database/sequelize/models');
 const statusEnum = require('../../../database/enums/payable/status.js');
 
-const create = async (payload, transactionId, infraVersion, environment) => {
-  const PayableModel = database[infraVersion][environment].Payable;
+const create = async (payload, transactionId, infraVersion, env, transaction = false) => {
+  const PayableModel = database[infraVersion][env].Payable;
   const statusId = statusEnum[payload.status];
 
-  const payable = await PayableModel.create({ ...payload, statusId, transactionId });
+  const model = await PayableModel.create({ ...payload, statusId, transactionId });
 
-  return payable.dataValues;
+  if (transaction) return model;
+
+  return (await model).dataValues;
 };
 
 module.exports = create;

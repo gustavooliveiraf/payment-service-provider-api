@@ -1,8 +1,8 @@
 const database = require('../../../../infra/database/sequelize/models');
 const formatDate = require('../utils/formatDate');
 
-const findByEmail = async (email, infraVersion, environment) => {
-  const UserModel = database[infraVersion][environment].User;
+const findByEmail = async (email, infraVersion, env) => {
+  const UserModel = database[infraVersion][env].User;
 
   let user = await UserModel.findOne({ where: { email } });
 
