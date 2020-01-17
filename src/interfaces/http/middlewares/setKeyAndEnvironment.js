@@ -1,6 +1,8 @@
 const {
-  basicAuthApiKeyName, prefixAkTest, prefixAkProd, prefixEkTest, prefixEkProd,
-} = require('../../../app/utils/constants');
+  constants: {
+    basicAuthApiKeyName, prefixAkTest, prefixAkProd, prefixEkTest, prefixEkProd,
+  },
+} = require('./utils');
 
 const prefixApiKeyTestLength = prefixAkTest.length;
 

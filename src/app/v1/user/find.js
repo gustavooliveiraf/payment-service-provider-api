@@ -1,4 +1,4 @@
-const userRepositoryDefault = require('../../infra/repositories/sequelize/user/findByEmail');
+const userRepositoryDefault = require('../../../infra/repositories/sequelize/user/find');
 const {
   jwtGenerator,
   bcryptHashFuncs: { compare },
@@ -23,7 +23,7 @@ const find = (repository) => async (req, res) => {
   try {
     const payload = req.user;
 
-    const user = await repository.findByEmail(payload.email, req.infraVersion, req.env);
+    const user = await repository.find('email', payload.email, req.infraVersion, req.env);
 
     if (!(await compare(payload.password, user.password))) {
       throw new Error('ValidationError');

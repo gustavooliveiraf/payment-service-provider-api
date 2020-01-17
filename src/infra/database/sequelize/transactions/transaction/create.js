@@ -9,8 +9,8 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
 
   let card;
   let transaction;
-  await sequelize.transaction(() => {
-    return cardRepository(argCard, infraVersion, env, true).then((cardTemp) => {
+  await sequelize.transaction(() => cardRepository(argCard, infraVersion, env, true)
+    .then((cardTemp) => {
       card = cardTemp.dataValues;
       return transactionRepository(argTransaction, card.id, infraVersion,
         env, true).then(async (transactionTemp) => {
@@ -20,8 +20,7 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
         }
         return null;
       });
-    });
-  });
+    }));
 
   return {
     card,
@@ -29,5 +28,7 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
   };
 };
 
-module.exports = (arg1 = transactionRepositoryDefault, arg2 = cardRepositoryDefault,
-  arg3 = payableRepositoryDefault) => create(arg1, arg2, arg3);
+module.exports = {
+  create: (arg1 = transactionRepositoryDefault, arg2 = cardRepositoryDefault,
+    arg3 = payableRepositoryDefault) => create(arg1, arg2, arg3),
+};

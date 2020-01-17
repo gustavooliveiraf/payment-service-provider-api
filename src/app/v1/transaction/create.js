@@ -1,15 +1,15 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-return-await */
-const sequelizeTransaction = require('../../infra/database/sequelize/transactions/transaction/create');
+const sequelizeTransaction = require('../../../infra/database/sequelize/transactions/transaction/create');
 
-const transactionResponseModel = require('../../domain/responseModels/transaction/create');
+const transactionResponseModel = require('../../../domain/responseModels/transaction/create');
 
-const create = () => async (req, res) => {
+const create = (repository) => async (req, res) => {
   try {
     const { infraVersion, env } = req;
     const { card, transaction, payable } = req.payload;
 
-    const payload = await sequelizeTransaction()(card,
+    const payload = await repository.create()(card,
       transaction, payable, infraVersion, env);
 
     const resp = transactionResponseModel('transaction',
@@ -21,4 +21,4 @@ const create = () => async (req, res) => {
   }
 };
 
-module.exports = () => create();
+module.exports = (arg1 = sequelizeTransaction) => create(arg1);

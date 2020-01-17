@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 const {
   constant: { maxString, minDomainSegments, minPassword },
-} = require('../../../../../app/utils');
+} = require('../utils');
 
 const schemaSignUp = Joi.object().keys({
   email: Joi.string().email({ minDomainSegments }).lowercase().required(),

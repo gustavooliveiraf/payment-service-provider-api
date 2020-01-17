@@ -1,6 +1,6 @@
 /* eslint-disable newline-per-chained-call */
 const Joi = require('@hapi/joi');
-const { constant: { maxInteger, maxString } } = require('../../../../app/utils');
+const { constant: { maxInteger, maxString } } = require('../utils');
 
 const schema = Joi.object().keys({
   status: Joi.string().max(maxString).required(),

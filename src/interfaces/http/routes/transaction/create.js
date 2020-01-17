@@ -1,9 +1,12 @@
 const router = require('express').Router();
 const creditCardType = require('credit-card-type'); // dependency injection
 
+const routesVersioning = require('../../middlewares/routesVersioning');
+
 const validatorAndParser = require('../../validatorsAndParsers/transaction/create');
 const domain = require('../../../../domain/businessRules/transaction/create.js');
-const controller = require('../../../../app/transaction/create');
+const controllerV1 = require('../../../../app/v1/transaction/create')();
+// const controllerV2 = require('../../../../app/v2/transaction/create');
 
 const clients = require('../../../../services/clients'); // dependency injection
 
@@ -36,6 +39,6 @@ const clients = require('../../../../services/clients'); // dependency injection
  *       '401':
  *         description: Unauthorized
  */
-router.post('/transactions', validatorAndParser, domain(creditCardType, clients), controller());
+router.post('/transactions', validatorAndParser, domain(creditCardType, clients), routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
 
 module.exports = router;

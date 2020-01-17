@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
-const { saltRounds } = require('./constants');
+
+const saltRounds = 10;
 
 const hash = async (password) => bcrypt.hash(password, saltRounds);
 

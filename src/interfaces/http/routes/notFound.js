@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { routeNotFound } = require('../../../app/utils/staticMessages');
 
-router.all('*', (_, res) => res.notFound(routeNotFound));
+router.all('*', (_, res) => res.notFound('Rota não encontrada'));
 
 module.exports = router;

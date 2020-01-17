@@ -1,15 +1,16 @@
 const router = require('express').Router({ mergeParams: true });
 
 const {
-  constant: { numberOfVersions },
-  message,
-} = require('../../../app/utils');
+  constants: { amountInfraVersions },
+  messages: { wrongInfraVersion },
+} = require('./utils');
 
 router.use((req, res, next) => {
   const infraVersion = Number.parseFloat(req.params.infraVersion);
 
-  if (!Number.isInteger(infraVersion) || (infraVersion > numberOfVersions || infraVersion <= 0)) {
-    return res.badRequest({ message: message.infraVersion });
+  if (!Number.isInteger(infraVersion)
+    || (infraVersion > amountInfraVersions || infraVersion <= 0)) {
+    return res.badRequest({ message: wrongInfraVersion });
   }
 
   req.infraVersion = `dbv${infraVersion}`;

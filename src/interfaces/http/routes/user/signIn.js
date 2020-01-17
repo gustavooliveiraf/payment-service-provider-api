@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const validator = require('../../validatorsAndParsers/user/find');
-const controller = require('../../../../app/user/find');
+
+const routesVersioning = require('../../middlewares/routesVersioning');
+
+const controllerV1 = require('../../../../app/v1/user/find')();
+// const controllerV2 = require('../../../../app/v1/user/find');
 
 /**
  * @swagger
@@ -36,6 +40,6 @@ const controller = require('../../../../app/user/find');
  *         description: Unprocessable Entity
  */
 
-router.post('/user/sign-in', validator, controller()); // dependency injection
+router.post('/user/sign-in', validator, routesVersioning(controllerV1)); // dependency injection
 
 module.exports = router;

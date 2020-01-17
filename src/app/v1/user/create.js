@@ -1,4 +1,4 @@
-const userRepositoryDefault = require('../../infra/repositories/sequelize/user/findOrCreate');
+const userRepositoryDefault = require('../../../infra/repositories/sequelize/user/findOrCreate');
 const {
   jwtGenerator,
   bcryptHashFuncs: { hash },

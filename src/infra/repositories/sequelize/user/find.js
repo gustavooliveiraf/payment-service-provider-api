@@ -1,10 +1,10 @@
 const database = require('../../../../infra/database/sequelize/models');
 const formatDate = require('../utils/formatDate');
 
-const findByEmail = async (email, infraVersion, env) => {
+const find = async (key, value, infraVersion, env) => {
   const UserModel = database[infraVersion][env].User;
 
-  let user = await UserModel.findOne({ where: { email } });
+  let user = await UserModel.findOne({ where: { [key]: value } });
 
   if (!user) throw new Error('ValidationError'); // User does not exist
 
@@ -14,5 +14,5 @@ const findByEmail = async (email, infraVersion, env) => {
 };
 
 module.exports = {
-  findByEmail,
+  find,
 };

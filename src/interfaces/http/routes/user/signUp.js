@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const validator = require('../../validatorsAndParsers/user/create');
-const controller = require('../../../../app/user/create');
+
+const routesVersioning = require('../../middlewares/routesVersioning');
+
+const controllerV1 = require('../../../../app/v1/user/create')();
+// const controllerV2 = require('../../../../app/v2/user/create');
 
 /**
  * @swagger
@@ -26,6 +30,6 @@ const controller = require('../../../../app/user/create');
  *       '400':
  *         description: Username or email already taken
  */
-router.post('/user/sign-up', validator, controller()); // dependency injection
+router.post('/user/sign-up', validator, routesVersioning(controllerV1)); // dependency injection
 
 module.exports = router;
