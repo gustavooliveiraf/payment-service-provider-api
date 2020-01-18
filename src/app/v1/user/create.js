@@ -1,35 +1,21 @@
 const userRepositoryDefault = require('../../../infra/repositories/sequelize/user/findOrCreate');
+const userModel = require('../../../domain/responseModels/user/default');
 const {
   jwtGenerator,
   bcryptHashFuncs: { hash },
   message: { emailAlreadyExists },
 } = require('../utils');
 
-const formatResponse = (user) => {
-  const userTemp = { ...user };
-
-  delete userTemp.id;
-  delete userTemp.password;
-
-  const { apiKey, encryptionKey } = user;
-
-  const token = jwtGenerator({ apiKey, encryptionKey });
-
-  return {
-    ...userTemp,
-    token,
-  };
-};
-
 const create = (repository) => async (req, res) => {
   try {
     req.user.password = await hash(req.user.password);
 
-    const payload = { ...req.user };
+    const { user, infraVersion } = req;
 
-    const user = await repository.findOrCreate(payload, req.infraVersion, req.env);
+    const userTest = await repository.findOrCreate(user, infraVersion, 'test');
+    const userProd = await repository.findOrCreate(user, infraVersion, 'prod');
 
-    return res.finish(formatResponse(user));
+    return res.finish(userModel(userTest, userProd, jwtGenerator));
   } catch (err) {
     if (err.message === 'ValidationError') {
       return res.badRequest({ message: emailAlreadyExists });

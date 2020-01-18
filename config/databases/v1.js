@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-// eslint-disable-next-line no-unused-expressions
-process.env.LOAD_ENV ? null : require('dotenv').config();
+// eslint-disable-next-line global-require
+if (!process.env.LOAD_ENV) require('dotenv').config();
 
 const test = {
   username: process.env.V1_DB_USERNAME_TEST,

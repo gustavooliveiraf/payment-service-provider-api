@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     refuseReason: {
       type: DataTypes.STRING,
     },
+    authorizationCode: {
+      type: DataTypes.STRING,
+    },
     statusId: {
       allowNull: false,
       type: DataTypes.INTEGER,
@@ -121,8 +124,14 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Transaction.associate = (models) => {
-    Transaction.belongsTo(models.User);
-    Transaction.belongsTo(models.Card);
+    Transaction.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'users',
+    });
+    Transaction.belongsTo(models.Card, {
+      foreignKey: 'cardId',
+      as: 'cards',
+    });
   };
 
   return Transaction;

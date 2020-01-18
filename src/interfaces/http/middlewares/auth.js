@@ -12,7 +12,7 @@ const getUser = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    return req.error(err);
+    return res.error(err);
   }
 };
 

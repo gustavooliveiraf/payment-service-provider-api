@@ -51,9 +51,9 @@ module.exports = (sequelize, DataTypes) => {
     schema: 'users',
   });
 
-  User.associate = () => {
-    // associations can be defined here
-  };
+  // User.associate = (models) => {
+  //   User.hasMany(models.Transaction);
+  // };
 
   return User;
 };

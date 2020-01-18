@@ -6,7 +6,8 @@ const findUser = (repository) => async (usedKey, keyValue, infraVersion, env) =>
 
     return user;
   } catch (err) {
-    if (err.parent.code === '22P02') return { error: true, message: 'Key inválida' };
+    if ((err.parent && err.parent.code === '22P02')
+      || err.message === 'ValidationError') return { error: true, message: 'Key inválida' };
 
     return { error: true, message: err.message };
   }

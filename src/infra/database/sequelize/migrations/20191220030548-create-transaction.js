@@ -26,6 +26,12 @@ module.exports = {
       type: Sequelize.BOOLEAN,
       defaultValue: true,
     },
+    refuseReason: {
+      type: Sequelize.STRING,
+    },
+    authorizationCode: {
+      type: Sequelize.STRING,
+    },
     statusId: {
       allowNull: false,
       type: Sequelize.INTEGER,
@@ -36,9 +42,6 @@ module.exports = {
         },
         key: 'id',
       },
-    },
-    refuseReason: {
-      type: Sequelize.STRING,
     },
     paymentMethodId: {
       allowNull: false,
