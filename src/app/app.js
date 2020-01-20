@@ -1,4 +1,4 @@
-const dbVersions = require('../infra/database/sequelize/models');
+const dbVersions = require('../infra/database/orm/sequelize/models');
 const server = require('../interfaces/http/server');
 
 const start = async () => {

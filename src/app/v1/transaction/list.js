@@ -1,4 +1,4 @@
-const transactionRepository = require('../../../infra/repositories/sequelize/transaction/findAll');
+const transactionRepository = require('../../../infra/repositories/orm/sequelize/transaction/findAll');
 const transactionResponseModel = require('../../../domain/responseModels/transaction/list');
 
 const list = (repository) => async (req, res) => {
@@ -11,7 +11,7 @@ const list = (repository) => async (req, res) => {
 
     const transactions = await repository.findAll(parameters, infraVersion, env);
 
-    return res.finish(transactionResponseModel('transaction list', transactions));
+    return res.finish(transactionResponseModel('transaction_list', transactions));
   } catch (err) {
     return res.error(err);
   }

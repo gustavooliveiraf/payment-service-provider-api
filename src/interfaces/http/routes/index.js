@@ -7,6 +7,7 @@ const authMiddleware = require('../middlewares/auth');
 
 const userRoute = require('./user');
 const transactionRoute = require('./transaction');
+const payableRoute = require('./payable');
 const routeNotFound = require('./notFound');
 const healthServerRoute = require('./healthServer');
 
@@ -18,6 +19,7 @@ router.use(setKeyAndEnvironment);
 router.use(authMiddleware);
 
 router.use(transactionRoute);
+router.use(payableRoute);
 router.use(healthServerRoute);
 router.use(routeNotFound);
 

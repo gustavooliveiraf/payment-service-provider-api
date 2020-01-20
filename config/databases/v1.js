@@ -3,7 +3,7 @@
 if (!process.env.LOAD_ENV) require('dotenv').config();
 
 const test = {
-  username: process.env.V1_DB_USERNAME_TEST,
+  user: process.env.V1_DB_USER_TEST,
   password: process.env.V1_DB_PASSWROD_TEST,
   database: process.env.V1_DB_DATABASE_TEST,
   host: process.env.V1_DB_HOST_TEST,
@@ -13,7 +13,7 @@ const test = {
 };
 
 const prod = {
-  username: process.env.V1_DB_USERNAME,
+  user: process.env.V1_DB_USER,
   password: process.env.V1_DB_PASSWROD,
   database: process.env.V1_DB_DATABASE,
   host: process.env.V1_DB_HOST,

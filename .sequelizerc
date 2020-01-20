@@ -5,7 +5,7 @@ const infraVersion = (process.argv[2] === 'db:create' || process.argv[2] === 'db
 
 module.exports = {
   'config': path.resolve('config/databases', infraVersion),
-  'models-path': path.resolve('src/infra/database/sequelize', 'models'),
-  'seeders-path': path.resolve('src/infra/database/sequelize', 'seeders'),
-  'migrations-path': path.resolve('src/infra/database/sequelize', 'migrations')
+  'models-path': path.resolve('src/infra/database/orm/sequelize', 'models'),
+  'seeders-path': path.resolve('src/infra/database/orm/sequelize', 'seeders'),
+  'migrations-path': path.resolve('src/infra/database/orm/sequelize', 'migrations')
 }

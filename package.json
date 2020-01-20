@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "Desafio Software Engineer, Back-end - Pagar.me",
   "main": "app.js",
+  "engines": {
+    "node": ">=12.14"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "db:prod:init": "NODE_ENV=prod npm run db:init",
+    "db:all:init": "npm run db:test:init && npm run db:prod:init",
     "db:test:init": "NODE_ENV=test npm run db:init",
+    "db:prod:init": "NODE_ENV=prod npm run db:init",
     "db:init": "npm run db:create && npm run db:migrate && npm run db:seed:all",
     "db:create": "npx sequelize db:create",
     "db:migrate": "npx sequelize db:migrate",
@@ -31,7 +35,6 @@
     "http-status-codes": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.15.1",
-    "pg-hstore": "^2.3.3",
     "schm": "^0.4.1",
     "sequelize": "^5.21.3",
     "swagger-jsdoc": "^3.5.0",

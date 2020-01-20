@@ -1,4 +1,4 @@
-const userRepositoryDefault = require('../../infra/repositories/sequelize/user/find');
+const userRepositoryDefault = require('../../infra/repositories/orm/sequelize/user/find');
 
 const findUser = (repository) => async (usedKey, keyValue, infraVersion, env) => {
   try {

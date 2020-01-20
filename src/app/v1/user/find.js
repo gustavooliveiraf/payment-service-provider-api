@@ -1,4 +1,4 @@
-const userRepositoryDefault = require('../../../infra/repositories/sequelize/user/find');
+const userRepositoryDefault = require('../../../infra/repositories/orm/sequelize/user/find');
 const userModel = require('../../../domain/responseModels/user/default');
 const {
   jwtGenerator,

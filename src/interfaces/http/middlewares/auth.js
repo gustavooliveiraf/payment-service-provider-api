@@ -4,7 +4,7 @@ const getUser = async (req, res, next) => {
   try {
     const user = await userController()(req.usedKey, req.key, req.infraVersion, req.env);
 
-    if (!user) return res.badRequest({ message: 'Key não existe ou expirada' });
+    if (!user) return res.badRequest({ message: 'Key inexistente' });
     if (user.error) return res.badRequest({ message: user.message });
 
     req.user = {};
