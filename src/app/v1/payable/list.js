@@ -1,5 +1,5 @@
 const payableRepository = require('../../../infra/repositories/orm/sequelize/payable/findAll');
-// const payableResponseModel = require('../../../domain/responseModels/transaction/list');
+const payableResponseModel = require('../../../domain/responseModels/payable/list');
 
 const findAll = (repository) => async (req, res) => {
   try {
@@ -7,11 +7,13 @@ const findAll = (repository) => async (req, res) => {
 
     const userId = req.user.id;
 
-    const { count, page } = req.payload;
+    const { count, page, status } = req.payload;
 
-    const payables = await repository.findAll({ userId, count, page }, infraVersion, env);
+    const payables = await repository.findAll({
+      userId, count, page, status,
+    }, infraVersion, env);
 
-    return res.finish(payables);
+    return res.finish(payableResponseModel(payables));
   } catch (err) {
     return res.error(err);
   }

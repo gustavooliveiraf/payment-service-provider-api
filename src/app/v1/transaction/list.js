@@ -11,7 +11,7 @@ const list = (repository) => async (req, res) => {
 
     const transactions = await repository.findAll(parameters, infraVersion, env);
 
-    return res.finish(transactionResponseModel('transaction_list', transactions));
+    return res.finish(transactionResponseModel(transactions));
   } catch (err) {
     return res.error(err);
   }

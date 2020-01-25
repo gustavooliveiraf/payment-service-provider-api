@@ -10,6 +10,9 @@ const transactionRoute = require('./transaction');
 const payableRoute = require('./payable');
 const routeNotFound = require('./notFound');
 const healthServerRoute = require('./healthServer');
+const swagger = require('../swagger/swagger');
+
+router.use(swagger);
 
 router.use(middlewares);
 

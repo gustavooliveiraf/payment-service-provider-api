@@ -8,28 +8,47 @@ const controllerV1 = require('../../../../app/v1/user/create')();
 
 /**
  * @swagger
- * /user/sign-up:
+ * /1/user/sign-up:
  *   post:
  *     tags:
- *       - Users
- *     name: Sign-up
+ *       - User
  *     summary: Register a new user
  *     consumes:
  *       - application/json
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: payload
+ *       - name: X-PagarMe-Version
+ *         in: header
+ *         required: true
+ *         description: Versão da api
+ *         type: string
+ *         enum: [v1]
+ *         default: v1
+ *       - name: body
  *         in: body
  *         schema:
  *           type: object
- *           $ref: '#/definitions/User'
+ *           properties:
+ *             email:
+ *               type: string
+ *               required: true
+ *               example: test@gmail.com
+ *             password:
+ *               type: string
+ *               format: password
+ *               required: true
+ *               example: "123456"
  *     responses:
- *       '201':
- *         description: User created
+ *       '200':
+ *         description: Registered user
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/User'
  *       '400':
  *         description: Username or email already taken
  */
+
 router.post('/user/sign-up', validator, routesVersioning(controllerV1)); // dependency injection
 
 module.exports = router;

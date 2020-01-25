@@ -7,33 +7,44 @@ const controllerV1 = require('../../../../app/v1/payable/list')();
 
 /**
  * @swagger
- * /transactions:
- *   post:
+ * /1/payables:
+ *   get:
+ *     security:
+ *      - auth: []
  *     tags:
- *       - Transaction
- *     name: Create Transaction
- *     summary: Create Transaction
+ *       - Payable
+ *     summary: List payables
  *     consumes:
  *       - application/json
  *     produces:
  *       - application/json
  *     parameters:
- *       - in: header
- *         name: api_key
- *         schema:
- *           type: string
- *           format: token
- *           example: test_0c82a54f22f775a3ed8b97b2dea74036
+ *       - name: X-PagarMe-Version
+ *         in: header
  *         required: true
- *         description: They are responsible for api authentica and associating account transactions
+ *         description: Versão da api
+ *         type: string
+ *         enum: [v1]
+ *         default: v1
+ *       - in: query
+ *         name: status
+ *         type: string
+ *         required: true
+ *         enum: [paid, waiting_funds]
+ *         default: waiting_funds
+ *         description: Filter
  *     responses:
  *       '200':
- *         description: Ok
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/Payable'
  *       '400':
  *         description: Bad Request
  *       '401':
  *         description: Unauthorized
  */
+
 router.get('/payables', validatorAndParser, routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
 
 module.exports = router;

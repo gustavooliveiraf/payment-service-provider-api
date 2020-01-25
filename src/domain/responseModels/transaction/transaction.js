@@ -3,6 +3,58 @@ const invert = require('../utils/invert');
 const enums = require('../../../infra/database/enums/transaction');
 const usedKeyEnum = require('../../../infra/database/enums/register/usedKey');
 
+/**
+ * @swagger
+ * definitions:
+ *   Transaction:
+ *     type: object
+ *     properties:
+ *       object:
+ *         type: string
+ *         example: transaction
+ *       id:
+ *         type: string
+ *       status:
+ *         type: string
+ *         example: authorized | refused
+ *       refuseReason:
+ *         type: string
+ *       value:
+ *         type: integer
+ *       capture:
+ *         type: boolean
+ *       capturedValue:
+ *         type: integer
+ *       authorizedValue:
+ *         type: integer
+ *       paymentMethod:
+ *         type: string
+ *         example: debit_card | credit_card
+ *       captureMethod:
+ *         type: string
+ *         example: ecommerce | magstripe | emv
+ *       cardLastDigits:
+ *         type: string
+ *       cardHolderName:
+ *         type: string
+ *       cardBrand:
+ *         type: string
+ *       authorizationCode:
+ *         type: string
+ *       usedKey:
+ *         type: string
+ *         example: apiKey | encryptionKey
+ *     required:
+ *       - value
+ *       - description
+ *       - paymentMethod
+ *       - captureMethod
+ *       - cardNumber
+ *       - cardHolderName
+ *       - cardExpirationDate
+ *       - cardCvv
+ */
+
 const captureMethod = invert(enums.captureMethod);
 const paymentMethod = invert(enums.paymentMethod);
 const status = invert(enums.status);
@@ -26,7 +78,7 @@ const transactionObject = schema({
   usedKey: String,
 });
 
-const transactionModel = (objectName, card, transaction) => {
+const transactionModel = (card, transaction) => {
   const transactionTemp = {
     id: transaction.id,
     value: transaction.value,
@@ -48,7 +100,7 @@ const transactionModel = (objectName, card, transaction) => {
   };
 
   return transactionObject.parse({
-    object: objectName, ...cardTemp, ...transactionTemp,
+    object: 'transaction', ...cardTemp, ...transactionTemp,
   });
 };
 

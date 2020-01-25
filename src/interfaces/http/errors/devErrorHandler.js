@@ -1,7 +1,10 @@
 const HttpStatus = require('http-status-codes');
 
 const internalServerError = (req, res, err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-  errors: { stack: err.stack },
+  errors: {
+    stack: err.stack,
+    type: 'internal_error',
+  },
   method: req.method,
   url: req.originalUrl,
 });

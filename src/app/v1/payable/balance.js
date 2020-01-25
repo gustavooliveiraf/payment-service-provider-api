@@ -1,6 +1,7 @@
 const payableRepository = require('../../../infra/repositories/raw/payable/balance');
+const balanceResponseModel = require('../../../domain/responseModels/payable/balance');
 
-const balance = (repository) => async (req, res) => {
+const balanceFunc = (repository) => async (req, res) => {
   try {
     const { infraVersion, env } = req;
 
@@ -8,12 +9,12 @@ const balance = (repository) => async (req, res) => {
 
     const { status } = req.payload;
 
-    const payables = await repository.balance({ userId, status }, infraVersion, env);
+    const { balance } = await repository.balance({ userId, status }, infraVersion, env);
 
-    return res.finish(payables);
+    return res.finish(balanceResponseModel(balance));
   } catch (err) {
     return res.error(err);
   }
 };
 
-module.exports = (arg1 = payableRepository) => balance(arg1);
+module.exports = (arg1 = payableRepository) => balanceFunc(arg1);

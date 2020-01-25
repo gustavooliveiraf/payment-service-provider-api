@@ -2,14 +2,15 @@ const router = require('express').Router({ mergeParams: true });
 
 const {
   constants: { amountInfraVersions },
-  messages: { wrongInfraVersion },
+  messages: { noInfraVersion, wrongInfraVersion },
 } = require('./utils');
 
 router.use((req, res, next) => {
   const infraVersion = Number.parseFloat(req.params.infraVersion);
 
-  if (!Number.isInteger(infraVersion)
-    || (infraVersion > amountInfraVersions || infraVersion <= 0)) {
+  if (!Number.isInteger(infraVersion)) return res.badRequest({ message: noInfraVersion });
+
+  if ((infraVersion > amountInfraVersions || infraVersion <= 0)) {
     return res.badRequest({ message: wrongInfraVersion });
   }
 

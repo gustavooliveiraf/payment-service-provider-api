@@ -7,33 +7,38 @@ const controllerV1 = require('../../../../app/v1/transaction/list')();
 
 /**
  * @swagger
- * /transactions:
- *   post:
+ * /1/transactions:
+ *   get:
+ *     security:
+ *      - auth: []
  *     tags:
- *       - Transaction
- *     name: Create Transaction
- *     summary: Create Transaction
+ *      - name: Transaction
+ *     summary: List transactions
  *     consumes:
  *       - application/json
  *     produces:
  *       - application/json
  *     parameters:
- *       - in: header
- *         name: api_key
- *         schema:
- *           type: string
- *           format: token
- *           example: test_0c82a54f22f775a3ed8b97b2dea74036
+ *       - name: X-PagarMe-Version
+ *         in: header
  *         required: true
- *         description: They are responsible for api authentica and associating account transactions
+ *         description: Versão da api
+ *         type: string
+ *         enum: [v1]
+ *         default: v1
  *     responses:
  *       '200':
- *         description: Ok
+ *         description: Listed transactions
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/Transaction'
  *       '400':
  *         description: Bad Request
  *       '401':
  *         description: Unauthorized
  */
+
 router.get('/transactions', validatorAndParser, routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
 
 module.exports = router;

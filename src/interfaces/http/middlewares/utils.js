@@ -9,9 +9,10 @@ const constants = {
 };
 
 const messages = {
-  wrongInfraVersion: 'Versão não existente',
+  noInfraVersion: 'Versão no parâmetro deve ser um inteiro (ex: url/1/transactions)',
+  wrongInfraVersion: 'Versão no parâmetro inexistente',
   noApiVersions: 'Versão da api inexistente no Header',
-  wrongApiVersions: 'Versão da api inexistente,',
+  wrongApiVersions: 'Versão da api inexistente',
 };
 
 module.exports = {

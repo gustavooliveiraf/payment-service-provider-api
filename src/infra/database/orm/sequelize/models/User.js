@@ -1,5 +1,6 @@
 const msIn3Hours = 180 * 60 * 1000;
 const msIn1Minute = 60 * 1000;
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     active: {

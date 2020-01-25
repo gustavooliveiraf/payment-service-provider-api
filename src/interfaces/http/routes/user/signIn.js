@@ -8,36 +8,45 @@ const controllerV1 = require('../../../../app/v1/user/find')();
 
 /**
  * @swagger
- * /user/sign-in:
+ * /1/user/sign-in:
  *   post:
  *     tags:
- *       - Users
- *     name: Sign-in
- *     summary: User login
+ *       - User
+ *     summary: User login and get keys
  *     consumes:
  *       - application/json
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: payload
+ *       - name: X-PagarMe-Version
+ *         in: header
+ *         required: true
+ *         description: Versão da api
+ *         type: string
+ *         enum: [v1]
+ *         default: v1
+ *       - name: body
  *         in: body
  *         schema:
  *           type: object
  *           properties:
  *             email:
  *               type: string
- *               example: gof@cin.ufpe.br
+ *               required: true
+ *               example: test@gmail.com
  *             password:
  *               type: string
  *               format: password
- *               example: "123"
+ *               required: true
+ *               example: "123456"
  *     responses:
  *       '200':
- *         description: Ok
- *       '401':
- *         description: Unauthorized
- *       '422':
- *         description: Unprocessable Entity
+ *         description: User login and get keys
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/User'
+ *       '400':
+ *         description: Invalid user
  */
 
 router.post('/user/sign-in', validator, routesVersioning(controllerV1)); // dependency injection

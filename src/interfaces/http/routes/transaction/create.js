@@ -6,39 +6,90 @@ const routesVersioning = require('../../middlewares/routesVersioning');
 const validatorAndParser = require('../../validatorsAndParsers/transaction/create');
 const domain = require('../../../../domain/businessRules/transaction/create.js');
 const controllerV1 = require('../../../../app/v1/transaction/create')();
-// const controllerV2 = require('../../../../app/v2/transaction/create');
+// const controllerV2 = require('../../../../app/v2/transaction/create')();
 
 const clients = require('../../../../services/clients'); // dependency injection
 
 /**
  * @swagger
- * /transactions:
+ * /1/transactions:
  *   post:
+ *     security:
+ *      - auth: []
  *     tags:
- *       - Transaction
- *     name: Create Transaction
- *     summary: Create Transaction
+ *      - name: Transaction
+ *     summary: Create transaction
  *     consumes:
  *       - application/json
  *     produces:
  *       - application/json
  *     parameters:
- *       - in: header
- *         name: api_key
- *         schema:
- *           type: string
- *           format: token
- *           example: test_0c82a54f22f775a3ed8b97b2dea74036
+ *       - name: X-PagarMe-Version
+ *         in: header
  *         required: true
- *         description: They are responsible for api authentica and associating account transactions
+ *         description: Versão da api
+ *         type: string
+ *         enum: [v1]
+ *         default: v1
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             object:
+ *               type: string
+ *             value:
+ *               type: integer
+ *               required: true
+ *               example: 12345
+ *             description:
+ *               type: string
+ *               required: true
+ *               example: Smartband XYZ 3.0
+ *             paymentMethod:
+ *               type: string
+ *               required: true
+ *               enum:
+ *               - debit_card
+ *               - credit_card
+ *               default: debit_card
+ *             captureMethod:
+ *               type: string
+ *               required: true
+ *               enum:
+ *               - ecommerce
+ *               - magstripe
+ *               - emv
+ *               default: ecommerce
+ *             cardNumber:
+ *               type: string
+ *               required: true
+ *               example: "4111111111111111"
+ *             cardHolderName:
+ *               type: string
+ *               required: true
+ *               example: Teste Silva
+ *             cardExpirationDate:
+ *               type: string
+ *               required: true
+ *               example: 11/20
+ *             cardCvv:
+ *               type: string
+ *               required: true
+ *               example: "567"
  *     responses:
  *       '200':
- *         description: Ok
+ *         description: Created transaction
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/Transaction'
  *       '400':
  *         description: Bad Request
  *       '401':
  *         description: Unauthorized
  */
+
 router.post('/transactions', validatorAndParser, domain(creditCardType, clients), routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
 
 module.exports = router;

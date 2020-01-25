@@ -1,21 +1,54 @@
+const {
+  prefixAkTest, prefixAkProd, prefixEkTest, prefixEkProd,
+} = require('../utils/constants');
+
+/**
+ * @swagger
+ * definitions:
+ *   User:
+ *     type: object
+ *     properties:
+ *       active:
+ *         type: boolean
+ *       email:
+ *         type: string
+ *       testKeys:
+ *         type: object
+ *         properties:
+ *           apiKey:
+ *             type: string
+ *           encryptionKey:
+ *             type: string
+ *       prodKeys:
+ *         type: object
+ *         properties:
+ *           apiKey:
+ *             type: string
+ *           encryptionKey:
+ *             type: string
+ *       token:
+ *         type: string
+ *         description: to authenticate front end
+ */
+
 const userModel = (userTest, userProd, jwtGenerator) => {
-  const test = {
-    apiKey: userTest.apiKey,
-    encryptionKey: userTest.encryptionKey,
+  const testKeys = {
+    apiKey: `${prefixAkTest}${userTest.apiKey}`,
+    encryptionKey: `${prefixEkTest}${userTest.encryptionKey}`,
   };
-  const prod = {
-    apiKey: userProd.apiKey,
-    encryptionKey: userProd.encryptionKey,
+  const prodKeys = {
+    apiKey: `${prefixAkProd}${userProd.apiKey}`,
+    encryptionKey: `${prefixEkProd}${userProd.encryptionKey}`,
   };
 
   const { active, email } = { ...userTest };
-  const token = jwtGenerator({ test, prod });
+  const token = jwtGenerator({ testKeys, prodKeys });
 
   return {
     active,
     email,
-    test,
-    prod,
+    testKeys,
+    prodKeys,
     token,
   };
 };

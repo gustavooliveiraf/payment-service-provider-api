@@ -24,10 +24,11 @@ const getApiKeyHeader = (auth) => {
 
 const getApiKey = (req, res, next) => {
   const key = req.body.api_key
+    || req.headers.api_key
     || req.query.api_key
     || getApiKeyHeader(req.headers.authorization);
 
-  if (!key) return res.unauthorized();
+  if (!key) return res.unauthorized({ message: 'api_key não setada' });
 
   const prefix = key.substring(0, prefixApiKeyTestLength);
   if (prefix !== prefixAkTest && prefix !== prefixAkProd
