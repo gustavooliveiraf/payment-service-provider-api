@@ -3,8 +3,8 @@ const validator = require('../../validatorsAndParsers/user/find');
 
 const routesVersioning = require('../../middlewares/routesVersioning');
 
-const controllerV1 = require('../../../../app/v1/user/find')();
-// const controllerV2 = require('../../../../app/v1/user/find');
+const controllerV1 = require('../../../../controllers/v1/user/find')();
+// const controllerV2 = require('../../../../controllers/v1/user/find');
 
 /**
  * @swagger

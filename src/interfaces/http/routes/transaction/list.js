@@ -3,7 +3,7 @@ const router = require('express').Router();
 const routesVersioning = require('../../middlewares/routesVersioning');
 
 const validatorAndParser = require('../../validatorsAndParsers/transaction/list');
-const controllerV1 = require('../../../../app/v1/transaction/list')();
+const controllerV1 = require('../../../../controllers/v1/transaction/list')();
 
 /**
  * @swagger

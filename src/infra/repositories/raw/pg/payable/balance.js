@@ -1,5 +1,5 @@
-const database = require('../../../database/raw/pg');
-const statusEnum = require('../../../database/enums/payable/status');
+const database = require('../../../../database/raw/pg');
+const statusEnum = require('../../../../database/enums/payable/status');
 
 const balance = async ({ userId, status }, infraVersion, env) => {
   const pool = database[infraVersion][env];

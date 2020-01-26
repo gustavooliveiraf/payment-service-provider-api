@@ -1,7 +1,7 @@
 const transactionRepository = require('../../../infra/repositories/orm/sequelize/transaction/findAll');
 const transactionResponseModel = require('../../../domain/responseModels/transaction/list');
 
-const list = (repository) => async (req, res) => {
+const list = (repository) => async (req, res, next) => {
   try {
     const {
       infraVersion, env, usedKey, key,
@@ -13,7 +13,7 @@ const list = (repository) => async (req, res) => {
 
     return res.finish(transactionResponseModel(transactions));
   } catch (err) {
-    return res.error(err);
+    return next(err);
   }
 };
 

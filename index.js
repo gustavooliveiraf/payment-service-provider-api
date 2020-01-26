@@ -1,5 +1,5 @@
-const start = require('./src/app/app');
-const { envDevelopment } = require('./config');
+const start = require('./src/controllers/app');
+const { production } = require('./config');
 
 start()
   .catch((err) => {
@@ -9,7 +9,7 @@ start()
     process.exit();
   });
 
-if (envDevelopment) {
+if (!production) {
   // eslint-disable-next-line global-require
   const startMocker = require('./src/mocker/serverMocker');
 

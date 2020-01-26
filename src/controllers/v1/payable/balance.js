@@ -1,7 +1,7 @@
-const payableRepository = require('../../../infra/repositories/raw/payable/balance');
+const payableRepository = require('../../../infra/repositories/raw/pg/payable/balance');
 const balanceResponseModel = require('../../../domain/responseModels/payable/balance');
 
-const balanceFunc = (repository) => async (req, res) => {
+const balanceFunc = (repository) => async (req, res, next) => {
   try {
     const { infraVersion, env } = req;
 
@@ -13,7 +13,7 @@ const balanceFunc = (repository) => async (req, res) => {
 
     return res.finish(balanceResponseModel(balance));
   } catch (err) {
-    return res.error(err);
+    return next(err);
   }
 };
 

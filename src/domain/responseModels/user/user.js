@@ -1,3 +1,4 @@
+const schema = require('schm');
 const {
   prefixAkTest, prefixAkProd, prefixEkTest, prefixEkProd,
 } = require('../utils/constants');
@@ -31,26 +32,31 @@ const {
  *         description: to authenticate front end
  */
 
-const userModel = (userTest, userProd, jwtGenerator) => {
-  const testKeys = {
+const userObject = schema({
+  test: Object,
+  prod: Object,
+});
+
+const userModel = (userTest, userProd, tokenTest, tokenProd) => {
+  const test = {
+    active: userTest.active,
+    email: userTest.email,
     apiKey: `${prefixAkTest}${userTest.apiKey}`,
     encryptionKey: `${prefixEkTest}${userTest.encryptionKey}`,
+    token: tokenTest,
   };
-  const prodKeys = {
+  const prod = {
+    active: userProd.active,
+    email: userProd.email,
     apiKey: `${prefixAkProd}${userProd.apiKey}`,
     encryptionKey: `${prefixEkProd}${userProd.encryptionKey}`,
+    token: tokenProd,
   };
 
-  const { active, email } = { ...userTest };
-  const token = jwtGenerator({ testKeys, prodKeys });
-
-  return {
-    active,
-    email,
-    testKeys,
-    prodKeys,
-    token,
-  };
+  return userObject.parse({
+    test,
+    prod,
+  });
 };
 
 module.exports = userModel;

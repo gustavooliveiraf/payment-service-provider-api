@@ -1,50 +1,52 @@
-const payable = require('../payable/create');
+const payableBusinessRules = require('../payable/create');
 const brandSchema = require('../schemas/brand/transactionCreate');
 
-const create = (creditCardType, brandClients) => async (req, res, next) => {
-  try {
-    const brandTypeArray = creditCardType(req.payload.card.number);
+const create = async (payload, creditCardType, brandClients) => {
+  const { card } = payload;
+  let { transaction } = payload;
+  let payable;
 
-    if (brandTypeArray.length > 1) throw new Error('Erro com a numeração do cartão');
+  const brandTypeArray = creditCardType(payload.card.number);
 
-    const brandType = brandTypeArray[0].type;
-    const brandClient = brandClients[brandType];
+  if (brandTypeArray.length > 1) throw new Error('Erro com a numeração do cartão');
 
-    const brandResponse = (await brandClient.post('/transaction', {
-      api_key: process.env.VISA_APIKEY,
-      capture: req.payload.transaction.capture,
-      value: req.payload.transaction.value,
-      ...req.payload.card,
-    })).data;
+  const brandType = brandTypeArray[0].type;
+  const brandClient = brandClients[brandType];
 
-    const brandPayload = await brandSchema.validateAsync(brandResponse);
+  const brandResponse = (await brandClient.post('/transaction', {
+    api_key: process.env.VISA_APIKEY,
+    capture: payload.transaction.capture,
+    value: payload.transaction.value,
+    ...payload.card,
+  })).data;
 
-    if (brandPayload.capturedValue > brandPayload.authorizedValue
-      || (brandPayload.status === 'authorized' && !brandPayload.authorizationCode)) throw new Error('Erro com a bandeira');
+  const brandPayload = await brandSchema.validateAsync(brandResponse);
 
-    req.payload.card.brand = brandType;
+  if (brandPayload.capturedValue > brandPayload.authorizedValue
+    || (brandPayload.status === 'authorized' && !brandPayload.authorizationCode)) throw new Error('Erro com a bandeira');
 
-    req.payload.transaction = {
-      ...req.payload.transaction,
-      status: brandPayload.status,
-      refuseReason: brandPayload.refuseReason,
-      capturedValue: brandPayload.capturedValue,
-      authorizedValue: brandPayload.authorizedValue,
-      authorizationCode: brandPayload.authorizationCode,
-    };
+  card.brand = brandType;
 
-    if (brandPayload.status === 'refused') {
-      return next();
-    }
+  transaction = {
+    ...transaction,
+    status: brandPayload.status,
+    refuseReason: brandPayload.refuseReason,
+    capturedValue: brandPayload.capturedValue,
+    authorizedValue: brandPayload.authorizedValue,
+    authorizationCode: brandPayload.authorizationCode,
+  };
 
-    req.payload.payable = req.payload.capture !== false
-      ? payable(req.payload.transaction)
+  if (brandPayload.status === 'authorized') {
+    payable = payload.capture !== false
+      ? payableBusinessRules(payload.transaction)
       : null;
-
-    return next();
-  } catch (err) {
-    return res.error(err);
   }
+
+  return {
+    card,
+    transaction,
+    payable,
+  };
 };
 
 module.exports = create;

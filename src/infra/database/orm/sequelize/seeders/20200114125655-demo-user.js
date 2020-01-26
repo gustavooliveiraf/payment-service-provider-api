@@ -1,5 +1,5 @@
 const uuid = require('uuid/v1');
-const { hash } = require('../../../../../app/v1/utils/bcryptHashFuncs');
+const { hash } = require('../../../../../controllers/v1/utils/bcryptHashFuncs');
 
 if (process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'production') {
   module.exports = {

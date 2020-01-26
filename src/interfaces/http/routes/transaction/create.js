@@ -1,14 +1,7 @@
 const router = require('express').Router();
-const creditCardType = require('credit-card-type'); // dependency injection
-
-const routesVersioning = require('../../middlewares/routesVersioning');
-
 const validatorAndParser = require('../../validatorsAndParsers/transaction/create');
-const domain = require('../../../../domain/businessRules/transaction/create.js');
-const controllerV1 = require('../../../../app/v1/transaction/create')();
-// const controllerV2 = require('../../../../app/v2/transaction/create')();
-
-const clients = require('../../../../services/clients'); // dependency injection
+const controllerV1 = require('../../../../controllers/v1/transaction/create')();
+const routesVersioning = require('../../middlewares/routesVersioning');
 
 /**
  * @swagger
@@ -90,6 +83,6 @@ const clients = require('../../../../services/clients'); // dependency injection
  *         description: Unauthorized
  */
 
-router.post('/transactions', validatorAndParser, domain(creditCardType, clients), routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
+router.post('/transactions', validatorAndParser, routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
 
 module.exports = router;

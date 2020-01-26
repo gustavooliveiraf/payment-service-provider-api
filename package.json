@@ -9,6 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "db:all:init": "npm run db:test:init && npm run db:prod:init",
     "db:test:init": "NODE_ENV=test npm run db:init",
     "db:prod:init": "NODE_ENV=prod npm run db:init",

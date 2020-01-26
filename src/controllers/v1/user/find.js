@@ -1,12 +1,12 @@
 const userRepositoryDefault = require('../../../infra/repositories/orm/sequelize/user/find');
-const userModel = require('../../../domain/responseModels/user/default');
+const userModel = require('../../../domain/responseModels/user/user');
 const {
   jwtGenerator,
   bcryptHashFuncs: { compare },
   message: { invalidUser },
 } = require('../utils');
 
-const find = (repository) => async (req, res) => {
+const find = (repository) => async (req, res, next) => {
   try {
     const payload = req.user;
 
@@ -17,13 +17,20 @@ const find = (repository) => async (req, res) => {
       throw new Error('ValidationError');
     }
 
-    return res.finish(userModel(userTest, userProd, jwtGenerator));
+    const tokenTest = jwtGenerator({
+      apiKey: userTest.apiKey, encryptionKey: userTest.encryptionKey,
+    });
+    const tokenProd = jwtGenerator({
+      apiKey: userProd.apiKey, encryptionKey: userProd.encryptionKey,
+    });
+
+    return res.finish(userModel(userTest, userProd, tokenTest, tokenProd));
   } catch (err) {
     if (err.message === 'ValidationError') {
       return res.badRequest({ message: invalidUser });
     }
 
-    return res.error(err);
+    return next(err);
   }
 };
 

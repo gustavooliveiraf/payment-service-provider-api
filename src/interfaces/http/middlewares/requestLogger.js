@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const { envDevelopment } = require('../../../../config');
+const { production } = require('../../../../config');
 
-module.exports = envDevelopment
+module.exports = !production
   ? require('morgan')('dev')
   : (req, res, next) => next();

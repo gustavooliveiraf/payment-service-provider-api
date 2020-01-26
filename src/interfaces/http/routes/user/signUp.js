@@ -3,8 +3,8 @@ const validator = require('../../validatorsAndParsers/user/create');
 
 const routesVersioning = require('../../middlewares/routesVersioning');
 
-const controllerV1 = require('../../../../app/v1/user/create')();
-// const controllerV2 = require('../../../../app/v2/user/create');
+const controllerV1 = require('../../../../controllers/v1/user/create')();
+// const controllerV2 = require('../../../../controllers/v2/user/create');
 
 /**
  * @swagger

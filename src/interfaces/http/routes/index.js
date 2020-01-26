@@ -1,6 +1,8 @@
 const router = require('express').Router({ mergeParams: true });
 const routerApi = require('express').Router();
 
+const { production } = require('../../../../config');
+
 const middlewares = require('../middlewares');
 const setKeyAndEnvironment = require('../middlewares/setKeyAndEnvironment');
 const authMiddleware = require('../middlewares/auth');
@@ -11,6 +13,9 @@ const payableRoute = require('./payable');
 const routeNotFound = require('./notFound');
 const healthServerRoute = require('./healthServer');
 const swagger = require('../swagger/swagger');
+
+const errorHandler = require('../errors/errorHandler');
+const devErrorHandler = require('../errors/devErrorHandler');
 
 router.use(swagger);
 
@@ -27,5 +32,7 @@ router.use(healthServerRoute);
 router.use(routeNotFound);
 
 routerApi.use('/:infraVersion', router);
+
+routerApi.use(production ? errorHandler : devErrorHandler);
 
 module.exports = routerApi;
