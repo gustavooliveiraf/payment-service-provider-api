@@ -7,11 +7,11 @@ const paymentMethodArray = Object.keys(enums.paymentMethod);
 const captureMethodArray = Object.keys(enums.captureMethod);
 
 const schemaSignUp = Joi.object().keys({
-  capture: Joi.boolean(),
+  capture: Joi.boolean().required(),
   value: Joi.number().integer().positive().max(maxInteger).required(),
   description: Joi.string().max(maxString).required(),
   paymentMethod: Joi.any().valid(...paymentMethodArray).required(),
-  captureMethod: Joi.any().valid(...captureMethodArray).required(),
+  captureMethod: Joi.any().valid(...captureMethodArray),
   cardNumber: Joi.string().creditCard().required(), // 15 | 16
   cardHolderName: Joi.string().max(maxString).required(),
   cardExpirationDate: Joi.string().max(maxString).required(),

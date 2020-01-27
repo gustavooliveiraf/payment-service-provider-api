@@ -19,10 +19,8 @@ describe('domain', () => {
 
           expect(typeof response.card === 'object' && response.card !== null).toBeTruthy();
           expect(typeof response.transaction === 'object' && response.transaction !== null).toBeTruthy();
-          expect(typeof response.payable === 'object' && response.payable !== null).toBeTruthy();
           expect(typeof response.card.number === 'string').toBeTruthy();
           expect(Number.isInteger(parseInt(response.transaction.value, 10))).toBeTruthy();
-          expect(typeof response.payable.status === 'string').toBeTruthy();
         });
       });
     });

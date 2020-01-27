@@ -24,7 +24,6 @@ module.exports = {
     capture: {
       allowNull: false,
       type: Sequelize.BOOLEAN,
-      defaultValue: true,
     },
     refuseReason: {
       type: Sequelize.STRING,

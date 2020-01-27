@@ -2,7 +2,6 @@ const database = require('../../models');
 const cardRepositoryDefault = require('../../../../../repositories/orm/sequelize/register/card/create');
 const transactionRepositoryDefault = require('../../../../../repositories/orm/sequelize/transaction/create');
 const payableRepositoryDefault = require('../../../../../repositories/orm/sequelize/payable/create');
-const statusEnum = require('../../../../enums/transaction/status');
 
 const create = (transactionRepository, cardRepository, payableRepository) => async (argCard,
   argTransaction, payable, infraVersion, env) => {
@@ -16,7 +15,7 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
       return transactionRepository(argTransaction, card.id, infraVersion,
         env, true).then(async (transactionTemp) => {
         transaction = transactionTemp.dataValues;
-        if (transaction.statusId === statusEnum.authorized) {
+        if (transaction.capture) {
           return payableRepository(payable, transaction.id, infraVersion, env, true);
         }
         return null;

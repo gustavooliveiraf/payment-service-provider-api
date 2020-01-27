@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     capture: {
       allowNull: false,
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
     },
     refuseReason: {
       type: DataTypes.STRING,
@@ -132,6 +131,10 @@ module.exports = (sequelize, DataTypes) => {
     Transaction.belongsTo(models.Card, {
       foreignKey: 'cardId',
       as: 'cards',
+    });
+    Transaction.hasMany(models.Payable, {
+      foreignKey: 'transactionId',
+      as: 'payables',
     });
   };
 

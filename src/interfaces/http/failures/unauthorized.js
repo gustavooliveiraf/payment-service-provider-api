@@ -1,11 +1,11 @@
 const HttpStatus = require('http-status-codes');
 
-const defaultRes = { message: HttpStatus.getStatusText(HttpStatus.UNAUTHORIZED) };
+const defaultRes = HttpStatus.getStatusText(HttpStatus.UNAUTHORIZED);
 
-const unauthorized = (req, res, details = defaultRes) => res.status(HttpStatus.UNAUTHORIZED).send({
+const unauthorized = (req, res, message = defaultRes) => res.status(HttpStatus.UNAUTHORIZED).send({
   error: {
     type: 'action_forbidden',
-    details,
+    message,
   },
   method: req.method,
   url: req.originalUrl,

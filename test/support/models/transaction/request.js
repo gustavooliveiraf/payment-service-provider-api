@@ -11,7 +11,6 @@ const transaction = () => ({
   value: faker.random.number(),
   description: sampleDescription[Math.floor(Math.random() * sampleDescription.length)],
   paymentMethod: paymentMethodArray[Math.floor(Math.random() * paymentMethodArray.length)],
-  captureMethod: captureMethodArray[Math.floor(Math.random() * captureMethodArray.length)],
   usedKey: faker.random.uuid(),
   userId: faker.random.number(),
 });

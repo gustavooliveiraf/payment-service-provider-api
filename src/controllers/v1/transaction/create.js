@@ -17,6 +17,13 @@ const create = (repository) => async (req, res, next) => {
 
     return res.finish(transactionResponseModel(payload.card, payload.transaction));
   } catch (err) {
+    if (err.message === 'cardNumber inválido' || err.message === 'cardCvv inválido') {
+      return res.badRequest({ message: err.message, invalid_key: err.invalid_key });
+    }
+    if (err.message === 'Bandeira não aceita') {
+      return res.badRequest({ message: err.message });
+    }
+
     return next(err);
   }
 };

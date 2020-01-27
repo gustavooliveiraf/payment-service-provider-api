@@ -1,4 +1,4 @@
-// require('./src/mocker/serverMocker');
+require('./src/mocker/serverMocker');
 
 module.exports = {
   verbose: true,

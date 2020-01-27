@@ -2,6 +2,7 @@ const schema = require('schm');
 const invert = require('../utils/invert');
 const enums = require('../../../infra/database/enums/transaction');
 const usedKeyEnum = require('../../../infra/database/enums/register/usedKey');
+const payableModel = require('../payable/list');
 
 /**
  * @swagger
@@ -103,7 +104,7 @@ const transactionModel = (card, transaction) => {
   };
 
   return transactionObject.parse({
-    object: 'transaction', ...cardTemp, ...transactionTemp, payables: transaction.payables,
+    object: 'transaction', ...cardTemp, ...transactionTemp, payables: payableModel(transaction.payables),
   });
 };
 

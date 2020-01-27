@@ -1,4 +1,4 @@
-const userRepositoryDefault = require('../../../infra/repositories/orm/sequelize/user/findOrCreate');
+const userRepository = require('../../../infra/repositories/orm/sequelize/user/findOrCreate');
 const userModel = require('../../../domain/responseModels/user/user');
 const { generateToken } = require('./utils');
 const { hashFuncs: { hash } } = require('./utils');
@@ -24,4 +24,4 @@ const create = (repository) => async (req, res, next) => {
   }
 };
 
-module.exports = (arg1 = userRepositoryDefault) => create(arg1);
+module.exports = (arg1 = userRepository) => create(arg1);
