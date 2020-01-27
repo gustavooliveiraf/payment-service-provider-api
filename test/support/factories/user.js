@@ -1,23 +1,26 @@
-const faker = require('faker');
-
-const user = () => ({
-  id: faker.random.number(),
-  active: faker.random.boolean(),
-  email: faker.internet.email(),
-  apiKey: faker.random.uuid(),
-  encryptionKey: faker.random.uuid(),
-});
-
-const UserModelMock = {
-  userExists: {
-    find: () => user(),
+const userRepositoryMock = {
+  find: {
+    userExists: (user) => ({
+      find: () => user,
+    }),
+    userNotExists: {
+      find: () => { throw new Error('ValidationError'); },
+    },
+    internalError: {
+      find: () => { throw new Error('Some Error'); },
+    },
   },
-  userNotExists: {
-    find: () => { throw new Error('ValidationError'); },
-  },
-  internalError: {
-    find: () => { throw new Error('Some Error'); },
+  findOrCreate: {
+    userNotExists: (user) => ({
+      findOrCreate: () => user,
+    }),
+    userExists: {
+      findOrCreate: () => { throw new Error('ValidationError'); },
+    },
+    internalError: {
+      findOrCreate: () => { throw new Error('Some Error'); },
+    },
   },
 };
 
-module.exports = UserModelMock;
+module.exports = userRepositoryMock;

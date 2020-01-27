@@ -1,4 +1,4 @@
-const req = {}
+const req = {};
 
 const res = {
   status(arg) {
@@ -9,8 +9,20 @@ const res = {
     this.response = arg;
     return this;
   },
+  finish(arg) {
+    this.response = arg;
+    return this;
+  },
   badRequest(arg) {
-    this.message = arg.message;
+    this.badRequestResponse = arg;
+    return this;
+  },
+  unauthorized(arg) {
+    this.unauthorizedResponse = arg;
+    return this;
+  },
+  notFound(arg) {
+    this.notFoundResponse = arg;
     return this;
   },
 };

@@ -1,3 +1,6 @@
+// eslint-disable-next-line global-require
+if (!process.env.LOAD_ENV) require('dotenv').config();
+
 const visa = {
   baseURL: process.env.VISA_BASEURL,
   timeout: process.env.VISA_TIMEOUT,

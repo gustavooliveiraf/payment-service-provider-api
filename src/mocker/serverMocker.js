@@ -1,7 +1,13 @@
-/* eslint-disable no-console */
-const appMocker = require('./appMocker');
+if (!process.env.production) {
+  // eslint-disable-next-line global-require
+  const appMocker = require('./appMocker');
 
-const startMocker = async () => appMocker.listen(5000,
-  () => console.log(`[mocker ${process.pid}] Listening at port ${5000}`));
+  const startMocker = async () => appMocker.listen(5000,
+    () => console.log(`[mocker ${process.pid}] Listening at port ${5000}`));
 
-module.exports = startMocker;
+  startMocker()
+    .catch(() => {
+      // logger.error(err.stack);
+      process.exit();
+    });
+}

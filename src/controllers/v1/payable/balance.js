@@ -9,7 +9,7 @@ const balanceFunc = (repository) => async (req, res, next) => {
 
     const { status } = req.payload;
 
-    const { balance } = await repository.balance({ userId, status }, infraVersion, env);
+    const balance = await repository.balance({ userId, status }, infraVersion, env);
 
     return res.finish(balanceResponseModel(balance));
   } catch (err) {

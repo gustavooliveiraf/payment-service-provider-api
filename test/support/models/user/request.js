@@ -1,10 +1,8 @@
 const faker = require('faker');
 
 const user = () => ({
-  active: faker.random.boolean(),
   email: faker.internet.email(),
-  apiKey: faker.random.uuid(),
-  encryptionKey: faker.random.uuid(),
+  password: faker.internet.password(),
 });
 
 module.exports = user;

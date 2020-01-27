@@ -10,7 +10,7 @@ const findUser = (repository) => async (req, res, next) => {
     return user;
   } catch (err) {
     if ((err.parent && err.parent.code === '22P02') // invalid uuid
-      || err.message === 'ValidationError') return res.badRequest({ message: 'Key inválida' });
+      || err.message === 'ValidationError') return res.badRequest({ message: 'key inválida', invalid_key: 'api_key' });
 
     return next(err);
   }

@@ -5,7 +5,7 @@ const payableModel = (payable) => {
   const { length } = payable;
 
   for (let i = 0; i < length; i += 1) {
-    list.push(payableResponseModel(payable[i].dataValues));
+    list.push(payableResponseModel(payable[i].dataValues || payable[i]));
   }
 
   return {

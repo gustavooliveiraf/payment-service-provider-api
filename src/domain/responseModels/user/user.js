@@ -33,6 +33,14 @@ const {
  */
 
 const userObject = schema({
+  active: Boolean,
+  email: String,
+  apiKey: String,
+  encryptionKey: String,
+  token: String,
+});
+
+const userEnvObject = schema({
   test: Object,
   prod: Object,
 });
@@ -53,9 +61,9 @@ const userModel = (userTest, userProd, tokenTest, tokenProd) => {
     token: tokenProd,
   };
 
-  return userObject.parse({
-    test,
-    prod,
+  return userEnvObject.parse({
+    test: userObject.parse({ ...test }),
+    prod: userObject.parse({ ...prod }),
   });
 };
 

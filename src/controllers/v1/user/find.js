@@ -1,33 +1,24 @@
 const userRepositoryDefault = require('../../../infra/repositories/orm/sequelize/user/find');
 const userModel = require('../../../domain/responseModels/user/user');
-const {
-  jwtGenerator,
-  bcryptHashFuncs: { compare },
-  message: { invalidUser },
-} = require('../utils');
+const { generateToken } = require('./utils');
+const { hashFuncs: { compare } } = require('./utils');
 
 const find = (repository) => async (req, res, next) => {
   try {
-    const payload = req.user;
+    const { infraVersion } = req;
+    const { email, password } = req.user;
 
-    const userTest = await repository.find('email', payload.email, req.infraVersion, 'test');
-    const userProd = await repository.find('email', payload.email, req.infraVersion, 'prod');
+    const userTest = await repository.find('email', email, infraVersion, 'test');
+    const userProd = await repository.find('email', email, infraVersion, 'prod');
 
-    if (!(await compare(payload.password, userTest.password))) {
-      throw new Error('ValidationError');
-    }
+    await compare(password, userTest.password);
 
-    const tokenTest = jwtGenerator({
-      apiKey: userTest.apiKey, encryptionKey: userTest.encryptionKey,
-    });
-    const tokenProd = jwtGenerator({
-      apiKey: userProd.apiKey, encryptionKey: userProd.encryptionKey,
-    });
+    const { tokenTest, tokenProd } = generateToken(userTest, userProd);
 
     return res.finish(userModel(userTest, userProd, tokenTest, tokenProd));
   } catch (err) {
     if (err.message === 'ValidationError') {
-      return res.badRequest({ message: invalidUser });
+      return res.badRequest({ message: 'Usuário e/ou senha inválidos' });
     }
 
     return next(err);

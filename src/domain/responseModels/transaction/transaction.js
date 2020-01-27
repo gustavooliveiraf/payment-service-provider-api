@@ -74,6 +74,7 @@ const transactionObject = schema({
   cardLastDigits: String,
   cardHolderName: String,
   cardBrand: String,
+  description: String,
   authorizationCode: String,
   usedKey: String,
 });
@@ -91,6 +92,7 @@ const transactionModel = (card, transaction) => {
     usedKey: usedKey[transaction.usedKeyId],
     refuseReason: transaction.refuseReason,
     authorizationCode: transaction.authorizationCode,
+    description: transaction.description,
   };
 
   const cardTemp = {

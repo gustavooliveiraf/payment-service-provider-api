@@ -16,7 +16,7 @@ const balance = async ({ userId, status }, infraVersion, env) => {
     [userId, statusEnum[status]],
   );
 
-  return res.rows[0];
+  return res.rows[0].balance;
 };
 
 module.exports = {

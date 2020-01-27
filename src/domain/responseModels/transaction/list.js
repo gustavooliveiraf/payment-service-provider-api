@@ -5,8 +5,10 @@ const transactionModel = (transactions) => {
   const { length } = transactions;
 
   for (let i = 0; i < length; i += 1) {
-    list.push(transactionResponseModel(transactions[i].cards.dataValues,
-      transactions[i].dataValues));
+    const card = transactions[i].cards.dataValues || transactions[i].cards;
+    const transaction = transactions[i].dataValues || transactions[i];
+
+    list.push(transactionResponseModel(card, transaction));
   }
 
   return {

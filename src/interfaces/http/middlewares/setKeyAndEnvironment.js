@@ -28,7 +28,7 @@ const getApiKey = (req, res, next) => {
     || req.query.api_key
     || getApiKeyHeader(req.headers.authorization);
 
-  if (!key) return res.unauthorized({ message: 'api_key não setada' });
+  if (!key) return res.badRequest({ message: 'api_key está faltando', invalid_key: 'api_key' });
 
   const prefix = key.substring(0, prefixApiKeyTestLength);
   if (prefix !== prefixAkTest && prefix !== prefixAkProd

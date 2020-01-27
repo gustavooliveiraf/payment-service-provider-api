@@ -12,10 +12,10 @@ const schemaSignUp = Joi.object().keys({
   description: Joi.string().max(maxString).required(),
   paymentMethod: Joi.any().valid(...paymentMethodArray).required(),
   captureMethod: Joi.any().valid(...captureMethodArray).required(),
-  cardNumber: Joi.string().creditCard().required(),
+  cardNumber: Joi.string().creditCard().required(), // 15 | 16
   cardHolderName: Joi.string().max(maxString).required(),
   cardExpirationDate: Joi.string().max(maxString).required(),
-  cardCvv: Joi.string().max(maxString).required(),
+  cardCvv: Joi.string().max(maxString).required(), // 3 | 4
 });
 
 module.exports = schemaSignUp;

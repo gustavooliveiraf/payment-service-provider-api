@@ -6,7 +6,7 @@ const create = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    return res.badRequest(err.details);
+    return res.badRequest(err.details[0]);
   }
 };
 

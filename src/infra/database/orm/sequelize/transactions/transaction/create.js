@@ -17,7 +17,7 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
         env, true).then(async (transactionTemp) => {
         transaction = transactionTemp.dataValues;
         if (transaction.statusId === statusEnum.authorized) {
-          await payableRepository(payable, transaction.id, infraVersion, env);
+          return payableRepository(payable, transaction.id, infraVersion, env, true);
         }
         return null;
       });
