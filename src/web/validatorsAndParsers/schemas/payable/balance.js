@@ -1,6 +1,6 @@
 /* eslint-disable newline-per-chained-call */
 const Joi = require('@hapi/joi');
-const statusEnum = require('../../../../../infra/database/enums/payable/status');
+const statusEnum = require('../../../../infra/database/enums/payable/status');
 
 const statusArray = Object.keys(statusEnum);
 

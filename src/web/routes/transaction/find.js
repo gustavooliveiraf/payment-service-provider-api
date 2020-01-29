@@ -2,49 +2,49 @@ const router = require('express').Router();
 
 const routesVersioning = require('../../middlewares/routesVersioning');
 
-const validatorAndParser = require('../../validatorsAndParsers/payable/list');
-const controllerV1 = require('../../../../controllers/v1/payable/list')();
+const validatorAndParser = require('../../validatorsAndParsers/transaction/find');
+const controllerV1 = require('../../../controllers/v1/transaction/find')();
 
 /**
  * @swagger
- * /1/payables:
+ * /1/transactions/{id}:
  *   get:
  *     security:
  *      - auth: []
  *     tags:
- *       - Payable
- *     summary: List payables
+ *      - name: Transaction
+ *     summary: Find transactions
  *     consumes:
  *       - application/json
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: X-PagarMe-Version
- *         in: header
+ *       - in: header
+ *         name: X-PagarMe-Version
  *         required: true
  *         description: Versão da api
  *         type: string
  *         enum: [v1]
  *         default: v1
- *       - in: query
- *         name: status
- *         type: string
+ *       - in: path
+ *         name: id
  *         required: true
- *         enum: [paid, waiting_funds]
- *         default: waiting_funds
- *         description: Filter
+ *         description: transactionId
+ *         type: string
+ *         format: uuid
  *     responses:
  *       '200':
+ *         description: Listed transactions
  *         schema:
  *           type: array
  *           items:
- *             $ref: '#/definitions/Payable'
+ *             $ref: '#/definitions/Transaction'
  *       '400':
  *         description: Bad Request
  *       '401':
  *         description: Unauthorized
  */
 
-router.get('/payables', validatorAndParser, routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
+router.get('/transactions/:id', validatorAndParser, routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
 
 module.exports = router;

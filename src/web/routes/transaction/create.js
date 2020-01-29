@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const validatorAndParser = require('../../validatorsAndParsers/transaction/create');
-const controllerV1 = require('../../../../controllers/v1/transaction/create')();
+const controllerV1 = require('../../../controllers/v1/transaction/create')();
 const routesVersioning = require('../../middlewares/routesVersioning');
 
 /**

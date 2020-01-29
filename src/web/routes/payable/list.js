@@ -2,49 +2,49 @@ const router = require('express').Router();
 
 const routesVersioning = require('../../middlewares/routesVersioning');
 
-const validatorAndParser = require('../../validatorsAndParsers/transaction/find');
-const controllerV1 = require('../../../../controllers/v1/transaction/find')();
+const validatorAndParser = require('../../validatorsAndParsers/payable/list');
+const controllerV1 = require('../../../controllers/v1/payable/list')();
 
 /**
  * @swagger
- * /1/transactions/{id}:
+ * /1/payables:
  *   get:
  *     security:
  *      - auth: []
  *     tags:
- *      - name: Transaction
- *     summary: Find transactions
+ *       - Payable
+ *     summary: List payables
  *     consumes:
  *       - application/json
  *     produces:
  *       - application/json
  *     parameters:
- *       - in: header
- *         name: X-PagarMe-Version
+ *       - name: X-PagarMe-Version
+ *         in: header
  *         required: true
  *         description: Versão da api
  *         type: string
  *         enum: [v1]
  *         default: v1
- *       - in: path
- *         name: id
- *         required: true
- *         description: transactionId
+ *       - in: query
+ *         name: status
  *         type: string
- *         format: uuid
+ *         required: true
+ *         enum: [paid, waiting_funds]
+ *         default: waiting_funds
+ *         description: Filter
  *     responses:
  *       '200':
- *         description: Listed transactions
  *         schema:
  *           type: array
  *           items:
- *             $ref: '#/definitions/Transaction'
+ *             $ref: '#/definitions/Payable'
  *       '400':
  *         description: Bad Request
  *       '401':
  *         description: Unauthorized
  */
 
-router.get('/transactions/:id', validatorAndParser, routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
+router.get('/payables', validatorAndParser, routesVersioning(controllerV1)); // routesVersioning(controllerV1, controllerV1, ...)
 
 module.exports = router;

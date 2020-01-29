@@ -2,7 +2,7 @@ const {
   constants: {
     prefixAkTest, prefixAkProd, prefixEkTest, prefixEkProd,
   },
-} = require('../../../interfaces/http/middlewares/utils');
+} = require('../../../web/middlewares/utils');
 
 const constants = {
   prefixAkTest,

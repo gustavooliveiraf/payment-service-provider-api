@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const app = require('./app');
-const checkDatabase = require('../../controllers/checkDatabase');
-const { port } = require('../../../config');
+const checkDatabase = require('../controllers/checkDatabase');
+const { port } = require('../../config');
 
 (async () => {
   try {

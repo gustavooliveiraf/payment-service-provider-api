@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi');
-const { maxString } = require('../../../src/interfaces/http/validatorsAndParsers/schemas/utils/constants');
+const { maxString } = require('../../../src/web/validatorsAndParsers/schemas/utils/constants');
 
 const schema = Joi.object().keys({
   object: Joi.string().max(maxString).required(),

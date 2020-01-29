@@ -1,4 +1,4 @@
-const authController = require('../../../controllers/auth/auth');
+const authController = require('../../controllers/auth/auth');
 
 const getUser = async (req, res, next) => {
   const user = await authController()(req, res, next);

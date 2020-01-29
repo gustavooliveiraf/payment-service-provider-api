@@ -1,7 +1,7 @@
 const router = require('express').Router({ mergeParams: true });
 const routerApi = require('express').Router();
 
-const { production } = require('../../../../config');
+const { production } = require('../../../config');
 
 const setInfraVersion = require('../middlewares/setInfraVersion');
 const setApiVersion = require('../middlewares/setApiVersion');

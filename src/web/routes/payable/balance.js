@@ -3,7 +3,7 @@ const router = require('express').Router();
 const routesVersioning = require('../../middlewares/routesVersioning');
 
 const validatorAndParser = require('../../validatorsAndParsers/payable/balance');
-const controllerV1 = require('../../../../controllers/v1/payable/balance')();
+const controllerV1 = require('../../../controllers/v1/payable/balance')();
 
 /**
  * @swagger

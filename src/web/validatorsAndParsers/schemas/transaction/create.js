@@ -1,7 +1,7 @@
 /* eslint-disable newline-per-chained-call */
 const Joi = require('@hapi/joi');
 const { constant: { maxInteger, maxString } } = require('../utils');
-const enums = require('../../../../../infra/database/enums/transaction');
+const enums = require('../../../../infra/database/enums/transaction');
 
 const paymentMethodArray = Object.keys(enums.paymentMethod);
 const captureMethodArray = Object.keys(enums.captureMethod);
