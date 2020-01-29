@@ -22,4 +22,6 @@ router.post('/visa/transaction', (req, res) => {
   });
 });
 
+router.post('/visa/capture', (req, res) => res.status(200).send({ auth: true }));
+
 module.exports = router;

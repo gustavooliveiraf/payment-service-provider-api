@@ -1,5 +1,5 @@
 const userRepositoryDefault = require('../../../infra/repositories/orm/sequelize/user/find');
-const userModel = require('../../../domain/responseModels/user/user');
+const userModel = require('../../../domain/entities/user/user');
 const { generateToken } = require('./utils');
 const { hashFuncs: { compare } } = require('./utils');
 

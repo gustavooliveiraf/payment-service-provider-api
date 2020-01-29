@@ -1,5 +1,5 @@
 const transactionRepository = require('../../../infra/repositories/orm/sequelize/transaction/findByPk');
-const transactionResponseModel = require('../../../domain/responseModels/transaction/find');
+const transactionFullResponseModel = require('../../../domain/entities/transaction/full');
 
 const list = (repository) => async (req, res, next) => {
   try {
@@ -9,9 +9,9 @@ const list = (repository) => async (req, res, next) => {
 
     if (req.user.id !== transaction.users.id) throw new Error('unauthorized');
 
-    return res.finish(transactionResponseModel(transaction.cards, transaction));
+    return res.finish(transactionFullResponseModel(transaction.cards, transaction));
   } catch (err) {
-    if (err.message === 'unauthorized') return res.unauthorized();
+    if (err.message === 'ValidationError') return res.badRequest({ message: 'TransactionId inexistente', invalide_parameter: 'transactionId' });
 
     return next(err);
   }

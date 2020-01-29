@@ -1,4 +1,8 @@
 const database = require('../../../../../infra/database/orm/sequelize/models');
+const paymentMethodEnum = require('../../../../database/enums/transaction/paymentMethod');
+const invert = require('../../../../../domain/entities/utils/invert');
+
+const paymentMethodEnumInvert = invert(paymentMethodEnum);
 
 const findByPk = async (id, infraVersion, env) => {
   const TransactionModel = database[infraVersion][env].Transaction;
@@ -22,8 +26,9 @@ const findByPk = async (id, infraVersion, env) => {
     }],
   });
 
-  if (!transaction) throw new Error('ValidationError'); // transaction does not exist
+  if (!transaction) throw new Error('ValidationError'); // transaction does not exist // transaction does not exist
 
+  transaction.dataValues.paymentMethod = paymentMethodEnumInvert[transaction.paymentMethodId];
   return transaction.dataValues;
 };
 

@@ -30,8 +30,10 @@ const routesVersioning = require('../../middlewares/routesVersioning');
  *         schema:
  *           type: object
  *           properties:
- *             object:
- *               type: string
+ *             capture:
+ *               type: boolean
+ *               required: true
+ *               example: true
  *             value:
  *               type: integer
  *               required: true

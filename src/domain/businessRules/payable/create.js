@@ -13,15 +13,15 @@ function round(value) {
   return Math.round(Math.round(value + 'e2') + 'e-2');
 }
 
-const create = (transaction) => {
+const create = ({ paymentMethod, value }) => {
   const now = new Date();
 
-  if (transaction.paymentMethod === 'debit_card') {
+  if (paymentMethod === 'debit_card') {
     return {
       status: 'paid',
       paymentDate: now,
       fee: feeDebit,
-      value: round(transaction.value * feeDebitCalc),
+      value: round(value * feeDebitCalc),
     };
   }
   // transaction.paymentMethod === 'credit_card'
@@ -29,7 +29,7 @@ const create = (transaction) => {
     status: 'waiting_funds',
     paymentDate: new Date(now.getTime() + msIn30days),
     fee: feeCredit,
-    value: round(transaction.value * feeCreditCalc),
+    value: round(value * feeCreditCalc),
   };
 };
 

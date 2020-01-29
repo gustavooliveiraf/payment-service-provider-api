@@ -1,6 +1,6 @@
 const express = require('express');
-const visaRouter = require('./visa/visaRouter');
-const mastercardRouter = require('./mastercard/mastercardRouter');
+const visaRouter = require('./visa/router');
+const mastercardRouter = require('./mastercard/router');
 
 const appMocker = express();
 

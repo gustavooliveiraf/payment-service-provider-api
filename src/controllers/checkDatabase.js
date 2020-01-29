@@ -1,5 +1,4 @@
 const dbVersions = require('../infra/database/orm/sequelize/models');
-const server = require('../interfaces/http/server');
 
 const start = async () => {
   const results = [];
@@ -11,8 +10,6 @@ const start = async () => {
   }
 
   await Promise.all(results);
-
-  server();
 };
 
 module.exports = start;

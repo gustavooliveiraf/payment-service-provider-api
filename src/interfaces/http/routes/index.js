@@ -3,7 +3,8 @@ const routerApi = require('express').Router();
 
 const { production } = require('../../../../config');
 
-const middlewares = require('../middlewares');
+const setInfraVersion = require('../middlewares/setInfraVersion');
+const setApiVersion = require('../middlewares/setApiVersion');
 const setKeyAndEnvironment = require('../middlewares/setKeyAndEnvironment');
 const authMiddleware = require('../middlewares/auth');
 
@@ -12,14 +13,12 @@ const transactionRoute = require('./transaction');
 const payableRoute = require('./payable');
 const routeNotFound = require('./notFound');
 const healthServerRoute = require('./healthServer');
-const swagger = require('../swagger/swagger');
 
 const errorHandler = require('../errors/errorHandler');
 const devErrorHandler = require('../errors/devErrorHandler');
 
-router.use(swagger);
-
-router.use(middlewares);
+router.use(setInfraVersion);
+router.use(setApiVersion);
 
 router.use(userRoute);
 

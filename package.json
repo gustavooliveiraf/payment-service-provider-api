@@ -7,18 +7,23 @@
     "node": ">=12.14"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "pm2-runtime start ecosystem.config.js",
     "dev": "nodemon index.js",
     "mocker": "node src/mocker/serverMocker",
+    "lint": "eslint .",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage --runInBand",
+    "db:prodAndJest:init": "npm run db:all:init && npm run db:jestAll:init",
     "db:all:init": "npm run db:test:init && npm run db:prod:init",
     "db:test:init": "NODE_ENV=test npm run db:init",
     "db:prod:init": "NODE_ENV=prod npm run db:init",
+    "db:jestAll:init": "npm run db:jestTest:init && npm run db:jestProd:init",
+    "db:jestTest:init": "NODE_ENV=jestTest npm run db:init",
+    "db:jestProd:init": "NODE_ENV=jestProd npm run db:init",
     "db:init": "npm run db:create && npm run db:migrate && npm run db:seed:all",
-    "db:create": "npx sequelize db:create",
-    "db:migrate": "npx sequelize db:migrate",
-    "db:seed:all": "npx sequelize db:seed:all"
+    "db:create": "sequelize db:create",
+    "db:migrate": "sequelize db:migrate",
+    "db:seed:all": "sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -31,6 +36,7 @@
     "axios": "^0.19.1",
     "bcrypt": "^3.0.7",
     "compression": "^1.7.4",
+    "concurrently": "^5.1.0",
     "continuation-local-storage": "^3.2.1",
     "credit-card-type": "^8.3.0",
     "dotenv": "^8.2.0",
@@ -38,8 +44,10 @@
     "http-status-codes": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.15.1",
+    "pm2": "^4.2.3",
     "schm": "^0.4.1",
     "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1",
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.2",
     "uuid": "^3.3.3"
@@ -53,7 +61,6 @@
     "morgan": "^1.9.1",
     "nock": "^11.7.1",
     "nodemon": "^2.0.2",
-    "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2"
   }
 }

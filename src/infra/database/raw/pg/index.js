@@ -3,11 +3,11 @@ const configVersion = require('../../../../../config/databases');
 
 const instantiate = (infraVersion, env) => {
   const {
-    user, host, password, database, port,
+    username, host, password, database, port,
   } = configVersion[infraVersion][env];
 
   return new Pool({
-    user,
+    user: username,
     host,
     database,
     password,
@@ -23,6 +23,15 @@ const dbv1 = {
   prod: v1prod,
 };
 
+const jestsTest = instantiate('jests', 'test');
+const jestsProd = instantiate('jests', 'prod');
+
+const jests = {
+  test: jestsTest,
+  prod: jestsProd,
+};
+
 module.exports = {
   dbv1,
+  jests,
 };

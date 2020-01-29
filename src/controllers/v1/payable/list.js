@@ -1,5 +1,5 @@
 const payableRepository = require('../../../infra/repositories/orm/sequelize/payable/findAll');
-const payableResponseModel = require('../../../domain/responseModels/payable/list');
+const payableResponseModel = require('../../../domain/entities/payable/list');
 
 const findAll = (repository) => async (req, res, next) => {
   try {

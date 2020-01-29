@@ -22,4 +22,6 @@ router.post('/mastercard/transaction', (req, res) => {
   });
 });
 
+router.post('/mastercard/capture', (req, res) => res.status(200).send({ auth: true }));
+
 module.exports = router;

@@ -40,7 +40,6 @@ const create = async (payload, creditCardType, brandClients) => {
 
   const brandClient = brandClients[brandType];
   const brandResponse = (await brandClient.post('/transaction', {
-    api_key: process.env.VISA_APIKEY,
     capture: payload.transaction.capture,
     value: payload.transaction.value,
     ...payload.card,
@@ -48,6 +47,8 @@ const create = async (payload, creditCardType, brandClients) => {
 
   if (brandResponse.capturedValue > brandResponse.authorizedValue
     || (brandResponse.status === 'authorized' && !brandResponse.authorizationCode)) throw new Error('Erro com a bandeira');
+
+  if (brandResponse.refused) throw new Error('Transação não foi autorizada');
 
   return brandSchema.validateAsync({ ...brandResponse, brandType, captureMethod });
 };

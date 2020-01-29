@@ -1,12 +1,12 @@
 const uuid = require('uuid/v1');
-const { hash } = require('../../../../../controllers/v1/utils/bcryptHashFuncs');
+const { hashFuncs: { hash } } = require('../../../../../controllers/v1/user/utils');
 
 if (process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'production') {
   module.exports = {
     up: async (queryInterface) => queryInterface.bulkInsert({ tableName: 'users', schema: 'users' }, [{
       active: true,
       email: 'test@gmail.com',
-      password: await hash('123456'),
+      password: await hash('test'),
       apiKey: uuid(),
       encryptionKey: uuid(),
       createdAt: new Date(),
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'production') {
     up: async (queryInterface) => queryInterface.bulkInsert({ tableName: 'users', schema: 'users' }, [{
       active: true,
       email: 'test@gmail.com',
-      password: await hash('123456'),
+      password: await hash('test'),
       apiKey: uuid(),
       encryptionKey: uuid(),
       createdAt: new Date(),

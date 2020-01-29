@@ -6,6 +6,11 @@ const {
 } = require('./utils');
 
 router.use((req, res, next) => {
+  if (req.params.infraVersion === 'jest') {
+    req.infraVersion = 'jests';
+    return next();
+  }
+
   const infraVersion = Number.parseFloat(req.params.infraVersion);
 
   if (!Number.isInteger(infraVersion)) return res.badRequest({ message: noInfraVersion });

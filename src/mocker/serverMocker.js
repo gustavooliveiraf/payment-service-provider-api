@@ -1,5 +1,6 @@
+/* eslint-disable global-require */
+/* eslint-disable no-console */
 if (!process.env.production) {
-  // eslint-disable-next-line global-require
   const appMocker = require('./appMocker');
 
   const startMocker = async () => appMocker.listen(5000,

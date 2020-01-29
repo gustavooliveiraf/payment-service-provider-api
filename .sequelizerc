@@ -1,10 +1,7 @@
 const path = require('path');
-const infraVersion = (process.argv[2] === 'db:create' || process.argv[2] === 'db:migrate')
-  ? process.argv[3] ? process.argv[3] : 'v1.js'
-  : 'v1.js';
 
 module.exports = {
-  'config': path.resolve('config/databases', infraVersion),
+  'config': path.resolve('config/databases', 'v1.js'),
   'models-path': path.resolve('src/infra/database/orm/sequelize', 'models'),
   'seeders-path': path.resolve('src/infra/database/orm/sequelize', 'seeders'),
   'migrations-path': path.resolve('src/infra/database/orm/sequelize', 'migrations')

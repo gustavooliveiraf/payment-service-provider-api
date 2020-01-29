@@ -81,7 +81,7 @@ const transactionObject = schema({
   payables: Array,
 });
 
-const transactionModel = (card, transaction) => {
+const transactionFullModel = (card, transaction) => {
   const transactionTemp = {
     id: transaction.id,
     value: transaction.value,
@@ -108,4 +108,4 @@ const transactionModel = (card, transaction) => {
   });
 };
 
-module.exports = transactionModel;
+module.exports = transactionFullModel;

@@ -29,6 +29,27 @@
       ],
     },
     {
+      "name": "vscode-jest-tests-current-file",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "--runInBand",
+        "--forceExit",
+        "${fileBasenameNoExtension}",
+        "--config",
+        "jest.config.js"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ],
+    }
+    {
       "name": "vscode-jest-tests",
       "type": "node",
       "request": "launch",

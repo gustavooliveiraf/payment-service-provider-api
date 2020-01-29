@@ -1,4 +1,4 @@
-const database = require('../../models');
+const database = require('../../../../../database/orm/sequelize/models');
 const cardRepositoryDefault = require('../../../../../repositories/orm/sequelize/register/card/create');
 const transactionRepositoryDefault = require('../../../../../repositories/orm/sequelize/transaction/create');
 const payableRepositoryDefault = require('../../../../../repositories/orm/sequelize/payable/create');
@@ -16,7 +16,10 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
         env, true).then(async (transactionTemp) => {
         transaction = transactionTemp.dataValues;
         if (transaction.capture) {
-          return payableRepository(payable, transaction.id, infraVersion, env, true);
+          return payableRepository({
+            ...payable, statusId: transaction.statusId, transactionId: transaction.id,
+          },
+          { infraVersion, env }, true);
         }
         return null;
       });

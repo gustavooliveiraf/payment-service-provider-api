@@ -2,7 +2,8 @@ const schema = require('../schemas/transaction/create');
 
 const create = async (req, res, next) => {
   try {
-    const body = await schema.validateAsync(req.body); // { abortEarly: false }
+    // { abortEarly: false }
+    const body = await schema.validateAsync(req.body, { stripUnknown: true });
 
     const card = {
       number: body.cardNumber,

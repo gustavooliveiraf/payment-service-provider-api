@@ -24,6 +24,6 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-router.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+router.use('/1/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 module.exports = router;

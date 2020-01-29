@@ -1,5 +1,5 @@
 const payableRepository = require('../../../infra/repositories/raw/pg/payable/balance');
-const balanceResponseModel = require('../../../domain/responseModels/payable/balance');
+const balanceResponseModel = require('../../../domain/entities/payable/balance');
 
 const balanceFunc = (repository) => async (req, res, next) => {
   try {

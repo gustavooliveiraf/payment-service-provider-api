@@ -1,5 +1,5 @@
 module.exports = {
-  paid: 1, // available
-  waiting_funds: 2,
-  transferred: 3,
+  paid: 1, // available but not transferred
+  waiting_funds: 2, // not yet available
+  // transferred: 3,
 };

@@ -46,15 +46,15 @@ const dbv1 = {
   prod: v1prod,
 };
 
-// const v2test = instantiate('v2', 'test');
-// const v2prod = instantiate('v2', 'prod');
+const jestsTest = instantiate('jests', 'test');
+const jestsProd = instantiate('jests', 'prod');
 
-// const dbv2 = {
-//   test: v2test,
-//   prod: v2prod,
-// };
+const jests = {
+  test: jestsTest,
+  prod: jestsProd,
+};
 
 module.exports = {
   dbv1,
-  // dbv2
+  jests,
 };

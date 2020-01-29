@@ -1,0 +1,16 @@
+version: "3"
+services:
+  api:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+
+  postgres:
+    image: postgres
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker

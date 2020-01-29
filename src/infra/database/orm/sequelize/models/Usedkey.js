@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE,
     },
-  }, {});
+  }, {
+    schema: 'register',
+  });
   usedKey.associate = () => {
     // associations can be defined here
   };

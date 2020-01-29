@@ -104,6 +104,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       get() {
         const createdAt = this.getDataValue('createdAt');
+        if (!createdAt) return undefined;
         return createdAt.getTimezoneOffset() === 180
           ? new Date(createdAt - msIn3Hours)
           : new Date(createdAt - createdAt.getTimezoneOffset() * msIn1Minute);
@@ -114,6 +115,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       get() {
         const updatedAt = this.getDataValue('updatedAt');
+        if (!updatedAt) return undefined;
         return updatedAt.getTimezoneOffset() === 180
           ? new Date(updatedAt - msIn3Hours)
           : new Date(updatedAt - updatedAt.getTimezoneOffset() * msIn1Minute);
