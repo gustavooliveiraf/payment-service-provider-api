@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
-
-// const logger = require('logger');
 const HttpStatus = require('http-status-codes');
 
 const internalServerError = (err, req, res, next) => {
-  // logger.error(err);
+  // logStash.error(err);
 
   return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
     errors: {

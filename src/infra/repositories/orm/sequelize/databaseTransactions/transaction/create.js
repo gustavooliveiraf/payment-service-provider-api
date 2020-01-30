@@ -15,9 +15,9 @@ const create = (transactionRepository, cardRepository, payableRepository) => asy
       return transactionRepository(argTransaction, card.id, infraVersion,
         env, true).then(async (transactionTemp) => {
         transaction = transactionTemp.dataValues;
-        if (transaction.capture) {
+        if (transaction.capture && argTransaction.status === 'authorized') {
           return payableRepository({
-            ...payable, statusId: transaction.statusId, transactionId: transaction.id,
+            ...payable, transactionId: transaction.id,
           },
           { infraVersion, env }, true);
         }

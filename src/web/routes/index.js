@@ -6,7 +6,7 @@ const { production } = require('../../../config');
 const setInfraVersion = require('../middlewares/setInfraVersion');
 const setApiVersion = require('../middlewares/setApiVersion');
 const setKeyAndEnvironment = require('../middlewares/setKeyAndEnvironment');
-const authMiddleware = require('../middlewares/auth');
+const auth = require('../middlewares/auth');
 
 const userRoute = require('./user');
 const transactionRoute = require('./transaction');
@@ -23,7 +23,7 @@ router.use(setApiVersion);
 router.use(userRoute);
 
 router.use(setKeyAndEnvironment);
-router.use(authMiddleware);
+router.use(auth);
 
 router.use(transactionRoute);
 router.use(payableRoute);

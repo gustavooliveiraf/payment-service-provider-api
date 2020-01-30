@@ -26,6 +26,14 @@ const controllerV1 = require('../../../controllers/v1/transaction/list')();
  *         type: string
  *         enum: [v1]
  *         default: v1
+ *       - in: query
+ *         name: count
+ *         type: integer
+ *         default: 10
+ *       - in: query
+ *         name: page
+ *         type: integer
+ *         default: 1
  *     responses:
  *       '200':
  *         description: Listed transactions

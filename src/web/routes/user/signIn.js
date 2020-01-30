@@ -38,7 +38,7 @@ const controllerV1 = require('../../../controllers/v1/user/find')();
  *               type: string
  *               format: password
  *               required: true
- *               example: "test"
+ *               example: "test123"
  *     responses:
  *       '200':
  *         description: User login and get keys

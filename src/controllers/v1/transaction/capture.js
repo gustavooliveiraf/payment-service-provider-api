@@ -42,7 +42,7 @@ const update = (repository) => async (req, res, next) => {
       value: payable.value,
       fee: payable.fee,
       paymentDate: payable.paymentDate,
-      statusId: transaction.statusId,
+      status: payable.status,
     }, { infraVersion, env });
 
     transaction.payables = [respPayable];

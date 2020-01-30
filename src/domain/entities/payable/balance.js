@@ -20,7 +20,7 @@ const balanceObject = schema({
 
 const balanceModel = (balance) => balanceObject.parse({
   object: 'balance',
-  balance,
+  balance: balance === null ? 0 : balance,
 });
 
 module.exports = balanceModel;

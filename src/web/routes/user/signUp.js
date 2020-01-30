@@ -38,7 +38,7 @@ const controllerV1 = require('../../../controllers/v1/user/create')();
  *               type: string
  *               format: password
  *               required: true
- *               example: "123456"
+ *               example: "test123"
  *     responses:
  *       '200':
  *         description: Registered user

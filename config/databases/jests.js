@@ -9,7 +9,7 @@ const test = {
   host: process.env.V1_DB_HOST_JEST_TEST,
   port: process.env.V1_DB_PORT_JEST_TEST,
   dialect: process.env.V1_DB_DIALECT_JEST_TEST,
-  logging: process.env.V1_DB_LOGGING_JEST === 'console' ? console.log : false, // Logstash?!!
+  logging: process.env.V1_DB_LOGGING_JEST_TEST === 'console' ? console.log : false, // Logstash?!!
 };
 
 const prod = {

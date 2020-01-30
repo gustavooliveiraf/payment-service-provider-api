@@ -33,6 +33,14 @@ const controllerV1 = require('../../../controllers/v1/payable/list')();
  *         enum: [paid, waiting_funds]
  *         default: waiting_funds
  *         description: Filter
+ *       - in: query
+ *         name: count
+ *         type: integer
+ *         default: 10
+ *       - in: query
+ *         name: page
+ *         type: integer
+ *         default: 1
  *     responses:
  *       '200':
  *         schema:
