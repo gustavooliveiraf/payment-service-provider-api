@@ -46,6 +46,12 @@
     todos requires dessa camada não podem envolver tecnologia.
   </dd>
 
+  <dt>Logger</dt>
+  <dd>
+    Inicialmente estava pensando em fazer o sistema de logger com a elastic stack. Mas não sei se estava dentro do escopo do desafio. De qualquer forma, mantive a arquitetura, pra integrar com algum sistema de logger só precisa passar o callback (atualmente estou passando o callback console.log mesmo, só para efeitos de testes).
+    Quando o request passa pelo middleware inicial de logger, é gerado um uuid e esse mesmo uuid se permeia para todo o request. Assim, dando algum bug o cliente pode pegar esse uuid, fazer uma busca na interface do sistema de log e fazer o trace do request dentro do projeto para entender o que aconteceu.
+  </dd>
+
   <dt>CLI integration</dt>
   <dd>
     Sequelize é uma mão na roda nesse contexto. migrações e seeders são feitos quase que sem nenhum overhead. Falarei sobre como usar-los mais na frente.
