@@ -48,7 +48,7 @@
     "schm": "^0.4.1",
     "sequelize": "^5.21.3",
     "sequelize-cli": "^5.5.1",
-    "swagger-jsdoc": "^3.5.0",
+    "swagger-jsdoc": "~3.5.0",
     "swagger-ui-express": "^4.1.2",
     "uuid": "^3.3.3"
   },

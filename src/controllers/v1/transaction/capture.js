@@ -5,10 +5,10 @@ const clients = require('../../../services/clients');
 const payableRepository = require('../../../infra/repositories/orm/sequelize/payable/create');
 const transactionFindRepository = require('../../../infra/repositories/orm/sequelize/transaction/findByPk');
 const transactionUpdateRepository = require('../../../infra/repositories/orm/sequelize/transaction/capture');
-const transactionFullResponseModel = require('../../../domain/entities/transaction/full');
+const transactionFullResponseModel = require('../../../domains/entities/transaction/full');
 const statusEnum = require('../../../infra/database/enums/transaction/status');
 
-const businessRules = require('../../../domain/businessRules/transaction/capture');
+const businessRules = require('../../../domains/businessRules/transaction/capture');
 
 const update = (repository) => async (req, res, next) => {
   try {

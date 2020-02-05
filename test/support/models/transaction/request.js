@@ -8,25 +8,25 @@ const sampleDescription = ['Smartband XYZ 2.0', 'Smartband XYZ 3.0', 'Smartband 
 
 const transaction = (paymentMethodArg, capture) => ({
   capture: capture || faker.random.boolean(),
-  value: faker.random.number(),
-  description: sampleDescription[Math.floor(Math.random() * sampleDescription.length)],
-  paymentMethod: paymentMethodArg || paymentMethodArray[Math.floor(Math.random() * paymentMethodArray.length)],
+  value: faker.random.number(40000),
+  description: sampleDescription[faker.random.number(sampleDescription.length - 1)],
+  paymentMethod: paymentMethodArg || paymentMethodArray[faker.random.number(paymentMethodArray.length - 1)],
   usedKey: faker.random.uuid(),
   userId: faker.random.number(),
 });
 
 const card = () => ({
-  number: sampleCreditCard[Math.floor(Math.random() * sampleCreditCard.length)],
+  number: sampleCreditCard[faker.random.number(0)],
   holderName: faker.name.findName(),
   expirationDate: faker.date.future(),
-  cvv: `${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}`,
+  cvv: faker.random.number({ min: 100, max: 999 }).toString(),
 });
 
 const cardCard = () => ({
-  cardNumber: sampleCreditCard[Math.floor(Math.random() * sampleCreditCard.length)],
+  cardNumber: sampleCreditCard[faker.random.number(0)],
   cardHolderName: faker.name.findName(),
   cardExpirationDate: faker.date.future(),
-  cardCvv: `${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}`,
+  cardCvv: faker.random.number({ min: 100, max: 999 }).toString(),
 });
 
 const full = (paymentMethodArg, capture) => ({

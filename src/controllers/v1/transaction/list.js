@@ -1,5 +1,5 @@
 const transactionRepository = require('../../../infra/repositories/orm/sequelize/transaction/findAll');
-const transactionResponseModel = require('../../../domain/entities/transaction/list');
+const transactionResponseModel = require('../../../domains/entities/transaction/list');
 
 const list = (repository) => async (req, res, next) => {
   try {

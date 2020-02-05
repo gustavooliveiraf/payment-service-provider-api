@@ -6,7 +6,7 @@ const statusArray = Object.keys(status);
 
 const transactionModelRepository = () => ({
   id: faker.random.number(),
-  status: statusArray[Math.floor(Math.random() * statusArray.length)],
+  status: statusArray[faker.random.number(statusArray.length - 1)],
   refuseReason: faker.lorem.slug(),
   ...card(),
   ...transaction(),

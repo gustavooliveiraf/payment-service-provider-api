@@ -4,5 +4,5 @@ module.exports = {
   verbose: true,
   testEnvironment: 'node',
   forceExit: true,
-  // rootDir: 'test/unit/domain/transaction',
+  // rootDir: 'test/unit/domains/transaction',
 };

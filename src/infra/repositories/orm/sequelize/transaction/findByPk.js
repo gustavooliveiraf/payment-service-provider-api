@@ -1,6 +1,6 @@
 const database = require('../../../../../infra/database/orm/sequelize/models');
 const paymentMethodEnum = require('../../../../database/enums/transaction/paymentMethod');
-const invert = require('../../../../../domain/entities/utils/invert');
+const invert = require('../../../../../domains/entities/utils/invert');
 
 const paymentMethodEnumInvert = invert(paymentMethodEnum);
 

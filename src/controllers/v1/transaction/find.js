@@ -1,5 +1,5 @@
 const transactionRepository = require('../../../infra/repositories/orm/sequelize/transaction/findByPk');
-const transactionFullResponseModel = require('../../../domain/entities/transaction/full');
+const transactionFullResponseModel = require('../../../domains/entities/transaction/full');
 
 const list = (repository) => async (req, res, next) => {
   try {

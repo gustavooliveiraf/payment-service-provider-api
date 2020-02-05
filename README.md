@@ -48,8 +48,9 @@
 
   <dt>Logger</dt>
   <dd>
-    Inicialmente estava pensando em fazer o sistema de logger com a elastic stack. Mas não sei se estava dentro do escopo do desafio. De qualquer forma, mantive a arquitetura, pra integrar com algum sistema de logger só precisa passar o callback (atualmente estou passando o callback console.log mesmo, só para efeitos de testes).
-    Quando o request passa pelo middleware inicial de logger, é gerado um uuid e esse mesmo uuid se permeia para todo o request. Assim, dando algum bug o cliente pode pegar esse uuid, fazer uma busca na interface do sistema de log e fazer o trace do request dentro do projeto para entender o que aconteceu.
+    Inicialmente estava pensando em fazer o sistema de logger com a ELK Stack. Mas não sei se estava dentro do escopo do desafio. De qualquer forma, mantive a arquitetura, pra integrar com algum sistema de logger só precisa passar o callback (atualmente estou passando o callback console.log mesmo, só para efeitos de testes).
+
+Quando o request passa pelo middleware inicial de logger, é gerado um uuid e esse mesmo uuid se permeia para todo o request. Assim, dando algum bug o cliente pode pegar esse uuid, fazer uma busca na interface do sistema de log e fazer o trace do request dentro do projeto para entender o que aconteceu.
   </dd>
 
   <dt>CLI integration</dt>
@@ -68,7 +69,7 @@ A API é RESTful, e todas suas respostas são em JSON, no endpoint base:
 ```
 http://localhost:3000/1/
 ```
-A seguir, algumas convenções de nossa API:
+A seguir, algumas convenções da API:
 ### Paginação
 Há muitas rotas de listagem de entidades na API. Em todas elas é necessário lidar com um sistema de paginação para percorrer todas as instâncias. Esse sistema refere-se aos parâmetros count e page. Count representa quantos resultados por página deverão ser retornados — se não for informado um valor, o padrão é 10, e seu limite é 1000. Page é a página a ser retornada e se não for informado um valor, o padrão é 1.
 
@@ -102,7 +103,8 @@ Middlewares  | Responsabilidade
 `auth`  | Pega a chave do usuário do middleware anterior e faz um find no banco para descobrir se existe tal chave e para setar o id do usuário. Note que também poderia ser usada a key do usuário nas queries, mas usando o id performa mais.
 
 ## Configurando o ambiente e subindo a aplicação
-O .env foi commitado para facilitar os testes.  
+O .env foi commitado para facilitar os testes. 
+### Com docker
 Para levantar o ambiente, basta ter o docker-compose instalado, ir na raiz do projeto e rodar o comando:
 ```bash
 $ docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml up -d
@@ -119,6 +121,17 @@ $ docker run -p 35432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=docker
 para subir o container do postgres e rodar o projeto normalmente, sem container.  
 
 Se ainda assim tiver problemas, me avisa que subo uma instância RDS e disponibilizo as variáveis para ser setada no .env
+
+### Sem docker
+Precisa setar as variáveis de ambiente do banco no .env e rodar os seguintes comandos:  
+Para criar/migrar/povoar o banco:
+```bash
+$ npm run db:init
+```
+Para subir a aplicação:
+```bash
+$ npm install && npm start
+```
 
 ## Testando via Swagger
 O acesso é através do endpoint htt://<ip_maquina>:3000/1/swagger

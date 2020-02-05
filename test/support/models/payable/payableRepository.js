@@ -6,7 +6,7 @@ const statusArray = Object.keys(status);
 const PayableRepository = () => ({
   id: faker.random.number(),
   value: faker.random.number(),
-  status: statusArray[Math.floor(Math.random() * statusArray.length)],
+  status: statusArray[faker.random.number(statusArray.length - 1)],
   fee: faker.random.number(),
   paymentDate: faker.date.recent(),
   transactionId: faker.random.uuid(),

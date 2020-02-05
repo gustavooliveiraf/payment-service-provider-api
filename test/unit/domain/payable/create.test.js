@@ -1,4 +1,4 @@
-const payableDomain = require('../../../../src/domain/businessRules/payable/create');
+const payableDomain = require('../../../../src/domains/businessRules/payable/create');
 const { transaction } = require('../../../support/models/transaction/request');
 
 describe('domain', () => {

@@ -19,7 +19,7 @@ const swaggerDefinition = {
 const options = {
   swaggerDefinition,
   // the first element of the array is the request models and the second is the response models
-  apis: ['./src/web/routes/**/*.js', './src/domain/**/*.js'],
+  apis: ['./src/web/routes/**/*.js', './src/domains/**/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

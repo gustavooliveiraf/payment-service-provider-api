@@ -4,9 +4,9 @@ const creditCardType = require('credit-card-type');
 const clients = require('../../../services/clients');
 /* === dependency injection in the domain === */
 
-const businessRules = require('../../../domain/businessRules/transaction/create');
+const businessRules = require('../../../domains/businessRules/transaction/create');
 const sequelizeTransactionRepository = require('../../../infra/repositories/orm/sequelize/databaseTransactions/transaction/create');
-const transactionResponseModel = require('../../../domain/entities/transaction/transaction');
+const transactionResponseModel = require('../../../domains/entities/transaction/transaction');
 
 const create = (repository) => async (req, res, next) => {
   try {

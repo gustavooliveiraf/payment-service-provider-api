@@ -1,5 +1,5 @@
 const userRepository = require('../../../infra/repositories/orm/sequelize/user/findOrCreate');
-const userModel = require('../../../domain/entities/user/user');
+const userModel = require('../../../domains/entities/user/user');
 const { generateToken } = require('./utils');
 const { hashFuncs: { hash } } = require('./utils');
 
