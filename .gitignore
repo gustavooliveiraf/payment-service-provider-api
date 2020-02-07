@@ -70,7 +70,7 @@ typings/
 
 # dotenv environment variables file
 .env.docker
-.env.nodocker
+.env.rawpostgres
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

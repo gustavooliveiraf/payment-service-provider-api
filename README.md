@@ -46,6 +46,11 @@
     todos requires dessa camada não podem envolver tecnologia.
   </dd>
 
+  <dt>Schedule Cron Jobs para enviar e-mail</dt>
+  <dd>
+    Foi programado para de meia noite (configurado via variável de ambiente) enviar e-mail para todos usuários ativos com o saldo atualizado.
+  </dd>
+
   <dt>Logger</dt>
   <dd>
     Inicialmente estava pensando em fazer o sistema de logger com a ELK Stack. Mas não sei se estava dentro do escopo do desafio. De qualquer forma, mantive a arquitetura, pra integrar com algum sistema de logger só precisa passar o callback (atualmente estou passando o callback console.log mesmo, só para efeitos de testes).
@@ -103,30 +108,29 @@ Middlewares  | Responsabilidade
 `auth`  | Pega a chave do usuário do middleware anterior e faz um find no banco para descobrir se existe tal chave e para setar o id do usuário. Note que também poderia ser usada a key do usuário nas queries, mas usando o id performa mais.
 
 ## Configurando o ambiente e subindo a aplicação
-O .env foi commitado para facilitar os testes. 
-### Com docker
-Para levantar o ambiente, basta ter o docker-compose instalado, ir na raiz do projeto e rodar o comando:
+O .env foi commitado para facilitar os testes.  
+Navegue até a raiz do projeto.
+### Com docker-compose
 ```bash
 $ docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml up -d
 ```
-Se tentar rodar o mesmo comando novamente, com o container do postgres ainda vivo, irá dar erro pois os bancos já estarão criados.  
-para resolver isso temos duas possibilidades, ou roda:
+Obs: se rodar compose stop, e depois compose up para subir novamente, irá dar erro pois os bancos já estarão criados.  
+Daí precisa-se rodar compose down seguido de compose up:
 ```bash
 $ docker-compose -f docker-compose.yml down && docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml up -d
 ```
-para derrubas os containers e subir novamente, ou roda:
+Se ainda assim tiver problemas, me avisa que subo uma instância RDS e disponibilizo as variáveis para ser setada no .env 
+### Com docker, sem docker-compose
+Renomeie o ".env.nodockercompose" para ".env" e roda:
 ```bash
-$ docker run -p 35432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=docker postgres && npm install && npm start
+$ docker run -p 35432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=docker -d postgres && npm install && npm run db:init && npm start
 ```
-para subir o container do postgres e rodar o projeto normalmente, sem container.  
-
-Se ainda assim tiver problemas, me avisa que subo uma instância RDS e disponibilizo as variáveis para ser setada no .env
 
 ### Sem docker
 Precisa setar as variáveis de ambiente do banco no .env e rodar os seguintes comandos:  
 Para criar/migrar/povoar o banco:
 ```bash
-$ npm run db:init
+$ npm install && npm run db:init
 ```
 Para subir a aplicação:
 ```bash
