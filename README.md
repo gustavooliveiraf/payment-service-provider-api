@@ -1,12 +1,13 @@
 
-# Desafio Software Engineer, Back-end - Pagar.me
+# Payment Service Provider (PSP)
+Uma versão super simplificada de um Payment Service Provider (PSP) como o Pagar.me (<a href="https://docs.pagar.me/reference">e inspirado nele</a>). Um overview de como funciona pagamentos no Brasil.
 
 **Summary**
 
 - [Features](#features)
 - [Princípios básicos](#princípios-básicos)
-- [Arquitetura do projeto](#arquitetura-do-projeto)
-- [Configurando e subindo a aplicação](#configurando-e-subindo-a-aplicação)
+- [Arquitetura](#arquitetura)
+- [Configurando o ambiente e subindo a aplicação](#configurando-o-ambiente-e-subindo-a-aplicação)
 - [Testando via Swagger](#testando-via-swagger)
 
 ## Features
@@ -19,20 +20,18 @@
 
   <dt>Pronto para produção</dt>
   <dd>
-    Setup com PM2 em modo cluster (tema da minha palestra aí na pagar.me rs..) e com as <a href="https://github.com/gustavooliveiraf/psp-api/blob/master/ecosystem.config.js">variavéis</a> necessárias para o app está pronto para ser escalado. Para, por exemplo, um projeto simples já estaria mais que suficiente. Mas no mundo real, os problemas com escalabilidade são reais (Black Friday que o diga). Assim, o sistema também foi provisionado na nuvem, daí testei três cenários: 
+    Setup com PM2 em modo cluster (<a href="https://www.meetup.com/pt-BR/nodebr/events/266566596/">tema de uma palestra minha na NodeBR</a>) e com as <a href="https://github.com/gustavooliveiraf/psp-api/blob/master/ecosystem.config.js">variavéis</a> necessárias para o app está pronto para ser escalado. Para, por exemplo, um projeto simples já estaria mais que suficiente. Mas no mundo real, os problemas com escalabilidade são reais (Black Friday que o diga). Assim, o sistema também foi provisionado na AWS (<a href="https://thedevconf.com/palestrante/gustavo-oliveira">tema de uma palestra minha no TDC</a>), daí testei três cenários: 
 
   - `EC2` com docker-compose --> escalabilidade vertical; 
 
   - `AWS Lambda` com <a href="https://serverless.com/">Serverless</a> --> escalabilidade horizontal 
 
   - `K8s` com EKS --> escalabilidade tanto vertical como horizontal (não que não dê para escalar EC2 e serverless assim, mas não é o foco). Local foi testado com <a href="https://github.com/kubernetes/minikube">Minikube</a>. 
-
-  Como não sei quando o desafio será avaliado, não vou disponibilizar os links agora, porque não é barato (principalmente o EKS). Mas quando for testar me avisa ou avisa pra Dani (que é suuper atenciosa) que provisiono (o endpoint pro swagger) qualquer um dos três.
   </dd>
 
-  <dt>ORM e puro SQL para integração com o banco de dados</dt>
+  <dt>ORM para integração com o banco de dados</dt>
   <dd>
-    Como ORM foi usado o <a href="https://www.npmjs.com/package/sequelize">Sequelize</a>. Foi ponderado o <a href="https://www.npmjs.com/package/slonik">Slonik</a> também, mas no final, não o escolhi. Para as queries mais complexas, como as que envolviam <a href="https://en.wikipedia.org/wiki/Database_transaction">transaction</a>, não foi usado ORM, para ganhar performance! Pois foi visto que em algumas queries era redundante, as que não eram, foi usado ORM.
+    Como ORM foi usado o <a href="https://www.npmjs.com/package/sequelize">Sequelize</a>. Foi ponderado o <a href="https://www.npmjs.com/package/slonik">Slonik</a> também, mas no final, não o escolhi. Para as queries mais complexas, como as que envolviam <a href="https://en.wikipedia.org/wiki/Database_transaction">transaction</a>, não foi usado ORM, para ganhar performance! Pois foi visto que em algumas queries Sequelize era redundante, as que não eram, foi usado ORM.
   </dd>
 
   <dt>Preparado para testes</dt>
@@ -42,7 +41,7 @@
 
   <dt>Injeção de depêndencia</dt>
   <dd>
-    Existem várias lib que proveem suporte para injeção de depêndencia (eu particulamente gosto da awilix). Mas como o desafio era relativamente simples, e para melhorar a compreensão, não usei nenhuma. Esse conceito facilita bastante os testes. Também vale salientar que a camada "Domain" é 100% agnóstica a tecnologia,
+    Existem várias lib que proveem suporte para injeção de depêndencia (eu particulamente gosto da awilix). Mas como o projeto é relativamente simples, e para melhorar a compreensão, não usei nenhuma. Esse conceito facilita bastante os testes. Também vale salientar que a camada "Domain" é 100% agnóstica a tecnologia,
     todos requires dessa camada não podem envolver tecnologia.
   </dd>
 
@@ -53,9 +52,9 @@
 
   <dt>Logger</dt>
   <dd>
-    Inicialmente estava pensando em fazer o sistema de logger com a ELK Stack. Mas não sei se estava dentro do escopo do desafio. De qualquer forma, mantive a arquitetura, pra integrar com algum sistema de logger só precisa passar o callback (atualmente estou passando o callback console.log mesmo, só para efeitos de testes).
+    Inicialmente estava pensando em fazer o sistema de logger com a ELK Stack. Não fiz, mas mantive a arquitetura, pra integrar com algum sistema de logger só precisa passar um callback (atualmente estou passando o callback console.log mesmo, só para efeitos de testes).
 
-Quando o request passa pelo middleware inicial de logger, é gerado um uuid e esse mesmo uuid se permeia para todo o request. Assim, dando algum bug o cliente pode pegar esse uuid, fazer uma busca na interface do sistema de log e fazer o trace do request dentro do projeto para entender o que aconteceu.
+Quando o request passa pelo middleware inicial de logger, é gerado um uuid e esse mesmo uuid se permeia para toda a cadeia de middleware. Assim, dando algum bug o cliente pode pegar esse uuid, fazer uma busca na interface do sistema de log e fazer o trace do request dentro do projeto para entender o que aconteceu.
   </dd>
 
   <dt>CLI integration</dt>
@@ -65,14 +64,14 @@ Quando o request passa pelo middleware inicial de logger, é gerado um uuid e es
 
   <dt>Linter</dt>
   <dd>
-    Para code styling foi usado o eslint.
+    Para code styling foi usado <a href="https://eslint.org/">eslint</a>.
   </dd>
 </dl>
 
 ## Princípios básicos
 A API é RESTful, e todas suas respostas são em JSON, no endpoint base:
 ```
-http://localhost:3000/1/
+http://<ip>:3000/1/
 ```
 A seguir, algumas convenções da API:
 ### Paginação
@@ -87,7 +86,8 @@ A API Key pode ser informada de quatro forma diferentes:
 4 - Basic Auth com username igual à chave e senha igual a api_key  
 
 ### Versionamento
-Deve ser passado no header o versionamento da api, com key X-PagarMe-Version e value [v1, ...].
+Da api: deve ser passado no header, com key X-PagarMe-Version e value [v1, ...].  
+De infra: deve ser passado no primeiro argumento do endpoint. O padrão é 1.
 
 ### Ambientes de teste e produção
 Para transacionar você tem acesso a duas Chaves de API distintas, uma para teste e outra para produção. Dessa forma, o endpoint é o mesmo, sendo possível diferenciar o ambiente apenas escolhendo a chave apropriada para o tipo de operação que você deseja fazer.
@@ -105,7 +105,7 @@ Middlewares  | Responsabilidade
 `setInfraVersion` | Seta a versão da infraestrutura. é o primeiro parâmetro da url. o default é 1. ex: url/1/transaction
 `setApiVersion` | Seta a versão da api que é passada no header com key X-PagarMe-Version
 `setKeyAndEnvironment`  | Seta a chave que o usuário usou e de acordo com a chave se é o ambiente de testes ou de prod.
-`auth`  | Pega a chave do usuário do middleware anterior e faz um find no banco para descobrir se existe tal chave e para setar o id do usuário. Note que também poderia ser usada a key do usuário nas queries, mas usando o id performa mais.
+`auth`  | Captura a chave do usuário do middleware anterior e faz um find no banco para descobrir se existe tal chave e para setar o id do usuário. Note que também poderia ser usada a key do usuário nas queries, mas usando o id performa mais.
 
 ## Configurando o ambiente e subindo a aplicação
 O .env foi commitado para facilitar os testes.  
@@ -119,7 +119,7 @@ Daí precisa-se rodar compose down seguido de compose up:
 ```bash
 $ docker-compose -f docker-compose.yml down && docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml up -d
 ```
-Se ainda assim tiver problemas, me avisa que subo uma instância RDS e disponibilizo as variáveis para ser setada no .env 
+Se ainda assim tiver problemas, sugiro subir uma instância RDS e setar as variáveis no .env 
 ### Com docker, sem docker-compose
 Renomeie o ".env.nodockercompose" para ".env" e roda:
 ```bash
@@ -138,7 +138,7 @@ $ npm install && npm start
 ```
 
 ## Testando via Swagger
-O acesso é através do endpoint htt://<ip_maquina>:3000/1/swagger
+O acesso é através do endpoint htt://<ip>:3000/1/swagger
 
 O primeiro passo é cadastrar um usuário para ter acesso a api_key. Em seguida, para transacionar entre os endpoints que não são de usuário, é preciso setar a api_key no <a href="https://i.ibb.co/Y749xHJ/Screenshot-from-2020-01-30-02-17-35.png">Authorize</a> do swagger.
 
