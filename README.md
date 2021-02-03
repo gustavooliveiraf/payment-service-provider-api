@@ -15,7 +15,7 @@ Uma versão super simplificada de um Payment Service Provider (PSP) como o Pagar
 <dl>
   <dt>Estrutura Multilayer folder</dt>
   <dd>
-    A <a href="https://i.ibb.co/bgDvr6q/Screenshot-from-2020-01-29-21-58-25.png">organização do código</a> foi inspirada por <a href="https://vaadin.com/learn/tutorials/ddd/ddd_and_hexagonal/">DDD</a> e <a href="https://medium.com/better-programming/node-clean-architecture-deep-dive-ab68e523554b">Clean Architecture</a>, focado na escalabilidade do codebase.
+    Foi implementado <a href="https://medium.com/better-programming/node-clean-architecture-deep-dive-ab68e523554b">Clean Architecture</a> com uma <a href="https://i.ibb.co/bgDvr6q/Screenshot-from-2020-01-29-21-58-25.png">estrutura robusta camada por camada</a> que desacopla o núcleo da lógica de negócio dos frameworks.
   </dd>
 
   <dt>Pronto para produção</dt>
